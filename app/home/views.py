@@ -3,7 +3,8 @@ __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:07'
 
 from . import home
+from flask import render_template
 
 @home.route("/")
 def index():
-    return "<h1 style='color:green'>this is home</h1>"
+    return render_template("home/index.html")

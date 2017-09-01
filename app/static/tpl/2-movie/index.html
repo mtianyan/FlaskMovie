@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
+    <title>微电影</title>
+    <link rel="shortcut icon" href="../../base/images/logo.png">
+    <link rel="stylesheet" href="../../base/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../base/css/bootstrap-movie.css">
+    <link rel="stylesheet" href="../../base/css/animate.css">
+    <style>
+        .navbar-brand>img {
+            display: inline;
+        }
+
+    </style>
+    <style>
+        .media{
+            padding:3px;
+            border:1px solid #ccc
+        }
+
+    </style>
+</head>
+
+<body>
+<!--导航-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand" style="width:250px;">
+                <img src="../../base/images/logo.png" style="height:30px;">&nbsp;微电影
+            </a>
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <form class="navbar-form navbar-left" role="search" style="margin-top:18px;">
+                <div class="form-group input-group">
+                    <input type="text" class="form-control" placeholder="请输入电影名！">
+                    <span class="input-group-btn">
+                        <a class="btn btn-default" href="search.html"><span class="glyphicon glyphicon-search"></span>&nbsp;搜索</a>
+                    </span>
+                </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="curlink" href="index.html"><span class="glyphicon glyphicon-film"></span>&nbsp;电影</a>
+                </li>
+                <li>
+                    <a class="curlink" href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a>
+                </li>
+                <li>
+                    <a class="curlink" href="register.html"><span class="glyphicon glyphicon-plus"></span>&nbsp;注册</a>
+                </li>
+                <li>
+                    <a class="curlink" href="logout.html"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</a>
+                </li>
+                <li>
+                    <a class="curlink" href="user.html"><span class="glyphicon glyphicon-user"></span>&nbsp;会员</a>
+                </li>
+            </ul>
+        </div>
+        <!--导航-->
+
+    </div>
+</nav>
+<!--导航-->
+<!--内容-->
+<!--内容-->
+<!--热门电影-->
+<section id="hotmovie" style="margin-top:76px">
+    <div class="container">
+        <div class="row wow fadeInRight" data-wow-delay="0.6s">
+            <div class="row">
+                <iframe class="wow fadeIn" width="100%" height="375px" frameborder=0 scrolling=no src="../1-index-animation/animation.html"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+<!--热门电影-->
+<!--电影列表-->
+<section id="movielist">
+    <div class="container">
+        <div class="row wow fadeIn" data-wow-delay="0.6s">
+            <div class="col-md-12 table-responsive">
+                <table class="table text-left table-bordered" id="movietags">
+                    <tr>
+                        <td style="width:10%;">电影标签</td>
+                        <td style="width:90%;">
+                            <a class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签一</a>
+                            &nbsp;
+                            <a class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签一</a>
+                            &nbsp;
+                            <a class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签一</a>
+                            &nbsp;
+                            <a class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签一</a>
+                            &nbsp;
+                            <a class="label label-info"><span class="glyphicon glyphicon-tag"></span>&nbsp;标签一</a>
+                    </tr>
+                    <tr>
+                        <td>电影星级</td>
+                        <td>
+                            <a class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;一星</a>
+                            &nbsp;
+                            <a class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;二星</a>
+                            &nbsp;
+                            <a class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;三星</a>
+                            &nbsp;
+                            <a class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;四星</a>
+                            &nbsp;
+                            <a class="label label-warning"><span class="glyphicon glyphicon-star"></span>&nbsp;五星</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>上映时间</td>
+                        <td>
+                            <a class="label label-default"><span class="glyphicon glyphicon-time"></span>&nbsp;最近</span></a>
+                            &nbsp;
+                            <a class="label label-default"><span class="glyphicon glyphicon-time"></span>&nbsp;2017</span></a>
+                            &nbsp;
+                            <a class="label label-default"><span class="glyphicon glyphicon-time"></span>&nbsp;2016</span></a>
+                            &nbsp;
+                            <a class="label label-default"><span class="glyphicon glyphicon-time"></span>&nbsp;2015</span></a>
+                            &nbsp;
+                            <a class="label label-default"><span class="glyphicon glyphicon-time"></span>&nbsp;更早</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>播放数量</td>
+                        <td>
+                            <a class="label label-success"><span class="glyphicon glyphicon-arrow-down"></span>&nbsp;从高到底</span></a>
+                            &nbsp;
+                            <a class="label label-danger"><span class="glyphicon glyphicon-arrow-up"></span>&nbsp;从低到高</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>评论数量</td>
+                        <td>
+                            <a class="label label-success"><span class="glyphicon glyphicon-arrow-down"></span>&nbsp;从高到底</span></a>
+                            &nbsp;
+                            <a class="label label-danger"><span class="glyphicon glyphicon-arrow-up"></span>&nbsp;从低到高</span></a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="movielist text-center">
+                    <!--<img data-original="holder.js/262x166"
+                             class="img-responsive lazy center-block" alt="">-->
+                    <img src="holder.js/262x166" class="img-responsive center-block" alt="">
+                    <div class="text-left" style="margin-left:auto;margin-right:auto;width:210px;">
+                        <span style="color:#999;font-style: italic;">环太平洋</span><br>
+                        <div>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                            <span class="glyphicon glyphicon-star-empty" style="color:#FFD119"></span>
+                        </div>
+                    </div>
+                    <a href="play.html" class="btn btn-primary" target="_blank" role="button"><span class="glyphicon glyphicon-play"></span>&nbsp;播放</a>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="First">
+                                <span aria-hidden="true">首页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">上一页</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1&nbsp;/&nbsp;10</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">下一页</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" aria-label="Last">
+                                <span aria-hidden="true">尾页</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+<!--电影列表-->
+<!--底部-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    ©&nbsp;2017&nbsp;flaskmovie.imooc.com&nbsp;京ICP备 13046642号-2
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--底部-->
+<script src="../../base/js/jquery.min.js"></script>
+<script src="../../base/js/bootstrap.min.js"></script>
+<script src="../../base/js/jquery.singlePageNav.min.js"></script>
+<script src="../../base/js/wow.min.js"></script>
+<script src="../static/lazyload/jquery.lazyload.min.js"></script>
+<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+<script>
+    $(function() {
+        new WOW().init();
+    })
+
+</script>
+<script>
+    $(document).ready(function() {
+        $("img.lazy").lazyload({
+            effect: "fadeIn"
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -38,7 +38,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href="index.html" class="navbar-brand" style="width:250px;">
-                <img src="../static/base/images/logo.png" style="height:30px;">&nbsp;微电影
+                <img src="{{ url_for('static',filename='base/images/logo.png') }}" style="height:30px;">&nbsp;微电影
             </a>
         </div>
         <!--小屏幕导航按钮和logo-->
@@ -77,6 +77,7 @@
 <!--导航-->
 <!--内容-->
 <div class="container" style="margin-top:76px">
+    {% block content %}{% endblock %}
 </div>
 <!--内容-->
 <!--底部-->
@@ -85,19 +86,18 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    ©&nbsp;2017&nbsp;flaskmovie.imooc.com&nbsp;京ICP备 13046642号-2
+                    ©&nbsp;2017&nbsp;movie.mtianyan.cn&nbsp;陕ICP备16011333号-1
                 </p>
             </div>
         </div>
     </div>
 </footer>
 <!--底部-->
-<script src="../static/base/js/jquery.min.js"></script>
-<script src="../static/base/js/bootstrap.min.js"></script>
-<script src="../static/base/js/jquery.singlePageNav.min.js"></script>
-<script src="../static/base/js/wow.min.js"></script>
-<script src="../static/lazyload/jquery.lazyload.min.js"></script>
-<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+<script src="{{ url_for('static',filename='base/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='base/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='base/js/jquery.singlePageNav.min.js') }}"></script>
+<script src="{{ url_for('static',filename='base/js/wow.min.js') }}"></script>
+<script src="{{ url_for('static',filename='lazyload/jquery.lazyload.min.js') }}"></script>
 <script>
     $(function() {
         new WOW().init();

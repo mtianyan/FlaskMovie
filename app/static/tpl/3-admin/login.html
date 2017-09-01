@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微电影管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='base/images/logo.png">
+    <link rel="stylesheet" href="../static/admin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/admin/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../static/admin/plugins/iCheck/square/blue.css">
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href=""><b>微电影管理系统</b></a>
+    </div>
+    <div class="login-box-body">
+        <p class="login-box-msg"></p>
+        <form action="" method="post" id="form-data">
+            <div class="form-group has-feedback">
+                <input name="user" type="text" class="form-control" placeholder="请输入账号！">
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                <div class="col-md-12" id="input_user"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <input name="pwd" type="password" class="form-control" placeholder="请输入密码！">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                <div class="col-md-12" id="input_pwd"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                </div>
+                <div class="col-xs-4">
+                    <a id="btn-sub" type="submit" class="btn btn-primary btn-block btn-flat">登录</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="../static/admin/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script src="../static/admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/admin/plugins/iCheck/icheck.min.js"></script>
+</body>
+</html>

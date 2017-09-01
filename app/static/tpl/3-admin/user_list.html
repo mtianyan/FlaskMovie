@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微电影管理系统</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="../../base/images/logo.png">
+    <link rel="stylesheet" href="../static/admin/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/fonts/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="../static/admin/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="../static/admin/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/admin/plugins/datepicker/datepicker3.css">
+    <style>
+        *{
+            font-family:"Microsoft YaHei";
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            vertical-align:middle;
+            text-align:center;
+        }
+
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a href="index.html" class="logo">
+            <span class="logo-mini"><img src="../../base/images/logo.png"
+                                         style="height:40px;width:40px;">电影系统</span>
+            <span class="logo-lg"><img src="../../base/images/logo.png"
+                                       style="height:40px;width:40px;">微电影管理系统</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">下拉菜单</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="../static/admin/dist/img/user2-160x160.jpg"
+                                 class="user-image" alt="User Image">
+                            <span class="hidden-xs">xxx</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                <img src="../static/admin/dist/img/user2-160x160.jpg"
+                                     class="img-circle" alt="User Image">
+                                <p>
+                                    xxx
+                                    <small>2017-06-01</small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="pwd.html" class="btn btn-default btn-flat">修改密码</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="login.html" class="btn btn-default btn-flat">退出系统</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="../static/admin/dist/img/user2-160x160.jpg" class="img-circle"
+                         alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>用户xxx</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                                class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            <ul class="sidebar-menu">
+                <li class="header">管理菜单</li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span>首页</span>
+                        <span class="label label-primary pull-right">1</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="index.html">
+                                <i class="fa fa-circle-o"></i> 控制面板
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-tags" aria-hidden="true"></i>
+                        <span>标签管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="tag_add.html">
+                                <i class="fa fa-circle-o"></i> 添加标签
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tag_list.html">
+                                <i class="fa fa-circle-o"></i> 标签列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                        <span>电影管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="movie_add.html">
+                                <i class="fa fa-circle-o"></i> 添加电影
+                            </a>
+                        </li>
+                        <li>
+                            <a href="movie_list.html">
+                                <i class="fa fa-circle-o"></i> 电影列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-film" aria-hidden="true"></i>
+                        <span>预告管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="preview_add.html">
+                                <i class="fa fa-circle-o"></i> 添加预告
+                            </a>
+                        </li>
+                        <li>
+                            <a href="preview_list.html">
+                                <i class="fa fa-circle-o"></i> 预告列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <span>会员管理</span>
+                        <span class="label label-primary pull-right">1</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="user_list.html">
+                                <i class="fa fa-circle-o"></i> 会员列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        <span>评论管理</span>
+                        <span class="label label-primary pull-right">1</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="comment_list.html">
+                                <i class="fa fa-circle-o"></i> 评论列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        <span>收藏管理</span>
+                        <span class="label label-primary pull-right">1</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="moviecol_list.html">
+                                <i class="fa fa-circle-o"></i> 收藏列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-file-text" aria-hidden="true"></i>
+                        <span>日志管理</span>
+                        <span class="label label-primary pull-right">3</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="oplog_list.html">
+                                <i class="fa fa-circle-o"></i> 操作日志列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="adminloginlog_list.html">
+                                <i class="fa fa-circle-o"></i> 管理员登录日志列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="userloginlog_list.html">
+                                <i class="fa fa-circle-o"></i> 会员登录日志列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span>权限管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="auth_add.html">
+                                <i class="fa fa-circle-o"></i> 添加权限
+                            </a>
+                        </li>
+                        <li>
+                            <a href="auth_list.html">
+                                <i class="fa fa-circle-o"></i> 权限列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-secret" aria-hidden="true"></i>
+                        <span>角色管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="role_add.html">
+                                <i class="fa fa-circle-o"></i> 添加角色
+                            </a>
+                        </li>
+                        <li>
+                            <a href="role_list.html">
+                                <i class="fa fa-circle-o"></i> 角色列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                        <span>管理员管理</span>
+                        <span class="label label-primary pull-right">2</span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li>
+                            <a href="admin_add.html">
+                                <i class="fa fa-circle-o"></i> 添加管理员
+                            </a>
+                        </li>
+                        <li>
+                            <a href="admin_list.html">
+                                <i class="fa fa-circle-o"></i> 管理员列表
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <!--内容-->
+        <section class="content-header">
+            <h1>微电影管理系统</h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
+                <li class="active">会员列表</li>
+            </ol>
+        </section>
+        <section class="content" id="showcontent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">会员列表</h3>
+                            <div class="box-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="table_search" class="form-control pull-right"
+                                           placeholder="请输入关键字...">
+
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tbody>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>昵称</th>
+                                    <th>邮箱</th>
+                                    <th>手机</th>
+                                    <th>头像</th>
+                                    <th>状态</th>
+                                    <th>注册时间</th>
+                                    <th>操作事项</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>拓荒者</td>
+                                    <td>1780316635@qq.com</td>
+                                    <td>13700632835</td>
+                                    <td>
+                                        <img data-src="holder.js/50x50" class="img-responsive center-block" alt="">
+                                    </td>
+                                    <td>正常/冻结</td>
+                                    <td>2017-06-01 12:00:00</td>
+                                    <td>
+                                        <a class="label label-success" href="user_view.html">查看</a>
+                                        &nbsp;
+                                        <a class="label label-info">解冻</a>
+                                        &nbsp;
+                                        <a class="label label-warning">冻结</a>
+                                        &nbsp;
+                                        <a class="label label-danger">删除</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <ul class="pagination pagination-sm no-margin pull-right">
+                                <li><a href="#">首页</a></li>
+                                <li><a href="#">上一页</a></li>
+                                <li><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">下一页</a></li>
+                                <li><a href="#">尾页</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--内容-->
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>版本</b> 1.0
+        </div>
+        <strong>版权 &copy; 2017-2018 归<a href="">xxx</a>.</strong> 所有
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>
+<script src="../static/admin/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+<script src="../static/admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="../static/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../static/admin/plugins/fastclick/fastclick.js"></script>
+<script src="../static/admin/dist/js/app.min.js"></script>
+<script src="../static/admin/dist/js/demo.js"></script>
+<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+<script src="../static/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="../static/admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
+
+
+</body>
+</html>
