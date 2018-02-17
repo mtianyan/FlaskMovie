@@ -54,13 +54,13 @@
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a class="curlink" href="index.html"><span class="glyphicon glyphicon-film"></span>&nbsp;电影</a>
+                    <a class="curlink" href="{{url_for('home.index')}}"><span class="glyphicon glyphicon-film"></span>&nbsp;电影</a>
                 </li>
                 <li>
                     <a class="curlink" href="{{ url_for('home.login')}}"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a>
                 </li>
                 <li>
-                    <a class="curlink" href="{{ url_for('home.regist')}}"><span class="glyphicon glyphicon-plus"></span>&nbsp;注册</a>
+                    <a class="curlink" href="{{ url_for('home.register')}}"><span class="glyphicon glyphicon-plus"></span>&nbsp;注册</a>
                 </li>
                 <li>
                     <a class="curlink" href="{{ url_for('home.logout')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</a>
@@ -86,7 +86,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    ©&nbsp;2017&nbsp;movie.mtianyan.cn&nbsp;陕ICP备16011333号-1
+                    ©&nbsp;2018&nbsp;movie.mtianyan.cn&nbsp;陕ICP备16011333号-1
                 </p>
             </div>
         </div>

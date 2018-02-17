@@ -6,58 +6,63 @@ __date__ = '2017/8/26 17:05'
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import pymysql
 
 app = Flask(__name__)
-#用于连接数据的数据库。
+# 用于连接数据的数据库。
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:ty158917@139.199.189.211:3306/movie"
-#如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] =True
+# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:tp158917@127.0.0.1:3306/movie"
+# 如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 
 db = SQLAlchemy(app)
 
-#会员数据模型
+
+# 会员数据模型
 class User(db.Model):
     __tablename__ = "user"
-    id = db.Column(db.Integer,primary_key=True)#编号
-    name = db.Column(db.String(100),unique=True)#昵称
-    pwd = db.Column(db.String(100))#密码
-    email = db.Column(db.String(100),unique=True)#邮箱
-    phone = db.Column(db.String(11),unique=True)#手机号
-    info = db.Column(db.Text)#个性简介
-    face = db.Column(db.String(255),unique=True)#头像
-    addtime = db.Column(db.DateTime,index=True,default=datetime.utcnow)#注册时间
-    uuid = db.Column(db.String(255),unique=True)#唯一标识符
-    #（设置外键的第二步）
-    userlogs = db.relationship('Userlog',backref = 'user')#会员日志外键关系关联
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    name = db.Column(db.String(100), unique=True)  # 昵称
+    pwd = db.Column(db.String(100))  # 密码
+    email = db.Column(db.String(100), unique=True)  # 邮箱
+    phone = db.Column(db.String(11), unique=True)  # 手机号
+    info = db.Column(db.Text)  # 个性简介
+    face = db.Column(db.String(255), unique=True)  # 头像
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 注册时间
+    uuid = db.Column(db.String(255), unique=True)  # 唯一标识符
+    # （下面是设置外键的第二步,指向Userlog模型，进行一个互相关系的绑定）
+    userlogs = db.relationship('Userlog', backref='user')  # 会员日志外键关系关联
     comments = db.relationship('Comment', backref='user')  # 评论外键关系关联
     moviecols = db.relationship('Moviecol', backref='user')  # 收藏外键关系关联
+
     def __repr__(self):
         return '<User %r>' % self.name
 
-#会员登录日志
+
+# 会员登录日志
 class Userlog(db.Model):
     __tablename__ = "userlog"
-    #（设置外键的第一步）
-    id = db.Column(db.Integer,primary_key=True)#编号
-    user_id =db.Column(db.Integer,db.ForeignKey('user.id'))#所属会员
-    ip = db.Column(db.String(100))#ip地址
-    addtime = db.Column(db.DateTime,index=True,default=datetime.utcnow)#登录时间
+    id = db.Column(db.Integer, primary_key=True)  # 编号
+    # （下面是设置外键的第一步）:指向user表的id字段
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属会员
+    ip = db.Column(db.String(100))  # ip地址
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 登录时间
 
     def __repr__(self):
         return '<User %r>' % self.id
+
 
 # 标签
 class Tag(db.Model):
     __tablename__ = "tag"
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 标题
-    addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 添加电影时间
-    # （设置外键的第二步）
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加电影时间
+    # （设置外键的第二步）关联模型，相互关系
     movies = db.relationship("Movie", backref='tag')  # 电影外键关系关联
 
     def __repr__(self):
         return "<Tag %r>" % self.name
+
 
 # 电影
 class Movie(db.Model):
@@ -68,14 +73,14 @@ class Movie(db.Model):
     info = db.Column(db.Text)  # 电影简介
     logo = db.Column(db.String(255), unique=True)  # 封面
     star = db.Column(db.SmallInteger)  # 星级
-    playnum = db.Column(db.BigInteger)  # 播放量c
+    playnum = db.Column(db.BigInteger)  # 播放量
     commentnum = db.Column(db.BigInteger)  # 评论量
     #  （设置外键第一步）
     tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'))  # 所属标签
     area = db.Column(db.String(255))  # 上映地区
     release_time = db.Column(db.Date)  # 上映时间
     length = db.Column(db.String(100))  # 播放时间
-    addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 添加时间
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
     comments = db.relationship("Comment", backref='movie')  # 评论外键关系关联
     moviecols = db.relationship("Moviecol", backref='movie')  # 收藏外键关系关联
 
@@ -89,19 +94,21 @@ class Preview(db.Model):
     id = db.Column(db.Integer, primary_key=True)  # 编号
     title = db.Column(db.String(255), unique=True)  # 标题
     logo = db.Column(db.String(255), unique=True)  # 封面
-    addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 添加时间
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
 
     def __repr__(self):
         return "<Preview %r>" % self.title
+
 
 # 评论
 class Comment(db.Model):
     __tablename__ = "comment"
     id = db.Column(db.Integer, primary_key=True)  # 编号
-    content = db.Column(db.Text)  # 内容
+    content = db.Column(db.Text)  # 评论内容
+    # 关联外键第一步，还要去user表和movie表进行第二步
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))  # 所属电影
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
-    addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 添加时间
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
 
     def __repr__(self):
         return "<Comment %r>" % self.id
@@ -111,12 +118,14 @@ class Comment(db.Model):
 class Moviecol(db.Model):
     __tablename__ = "moviecol"
     id = db.Column(db.Integer, primary_key=True)  # 编号
+    # 关联外键第一步，还要去user表和movie表进行第二步
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))  # 所属电影
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属用户
-    addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 添加时间
+    addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加时间
 
     def __repr__(self):
         return "<Moviecol %r>" % self.id
+
 
 # 权限
 class Auth(db.Model):
@@ -187,8 +196,11 @@ class Oplog(db.Model):
     def __repr__(self):
         return "<Oplog %r>" % self.id
 
+
 if __name__ == "__main__":
     db.create_all()
+
+    # 测试数据的插入
 
     # role = Role(
     #     name="超级管理员",
@@ -199,11 +211,10 @@ if __name__ == "__main__":
     # from werkzeug.security import generate_password_hash
     #
     # admin = Admin(
-    #     name="imoocmovie",
-    #     pwd=generate_password_hash("imoocmovie"),
+    #     name="mtianyanmovie",
+    #     pwd=generate_password_hash("mtianyanmovie"),
     #     is_super=0,
     #     role_id=1
     # )
     # db.session.add(admin)
     # db.session.commit()
-
