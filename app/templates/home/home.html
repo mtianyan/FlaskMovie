@@ -15,15 +15,13 @@
         .navbar-brand>img {
             display: inline;
         }
-
-    </style>
-    <style>
-        .media{
+                .media{
             padding:3px;
             border:1px solid #ccc
         }
 
     </style>
+    {% block css %} {% endblock %}
 </head>
 
 <body>
@@ -66,7 +64,7 @@
                     <a class="curlink" href="{{ url_for('home.logout')}}"><span class="glyphicon glyphicon-log-out"></span>&nbsp;退出</a>
                 </li>
                 <li>
-                    <a class="curlink" href="user.html"><span class="glyphicon glyphicon-user"></span>&nbsp;会员</a>
+                    <a class="curlink" href="{{ url_for('home.user')}}"><span class="glyphicon glyphicon-user"></span>&nbsp;会员</a>
                 </li>
             </ul>
         </div>
@@ -112,5 +110,6 @@
     });
 
 </script>
+{% block js %} {% endblock %}
 </body>
 </html>
