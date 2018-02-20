@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>消失在宇宙星空中的404页面</title>
+    <link href="{{ url_for('static',filename='404/404.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!-- 代码 开始 -->
+<div class="fullScreen" id="fullScreen">
+    <img class="rotating" src="{{ url_for('static',filename='404/spaceman.svg') }}">
+    <div class="pagenotfound-text">
+        <h1>迷失在太空中！</h1>
+        <h2><a href="{{ url_for('home.index') }}">返回首页</a></h2>
+    </div>
+    <canvas id="canvas2d"></canvas>
+</div>
+<script type="text/javascript" src="{{ url_for('static',filename='404/404.js') }}"></script>
+<!-- 代码 结束 -->
+</body>
+</html>

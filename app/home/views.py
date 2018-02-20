@@ -6,14 +6,6 @@ from . import home
 from flask import render_template, url_for, redirect
 
 
-@home.route("/")
-def index():
-    """
-    首页
-    """
-    return render_template("home/index.html")
-
-
 @home.route("/login/")
 def login():
     """
@@ -78,3 +70,38 @@ def moviecol():
     收藏电影
     """
     return render_template("home/moviecol.html")
+#
+
+
+@home.route("/")
+def index():
+    """
+     首页电影列表
+    """
+    return render_template("home/index.html")
+
+
+@home.route("/animation/")
+def animation():
+    """
+    首页轮播动画
+    """
+    return render_template("home/animation.html")
+
+
+@home.route("/search/")
+def search():
+    """
+    搜索
+    """
+    return render_template("home/search.html")
+
+
+@home.route("/play/")
+def play():
+    """
+    播放
+    """
+    return render_template("home/play.html")
+
+

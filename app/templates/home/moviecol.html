@@ -11,61 +11,19 @@
             </div>
             <div class="panel-body">
                 <div class="col-md-12">
+                {% for v in range(1,11) %}
                     <div class="media">
                         <div class="media-left">
-                            <a href="play.html">
+                            <a href="{{ url_for('home.play') }}">
                                 <img class="media-object" src="holder.js/131x83" alt="环太平洋">
                             </a>
                         </div>
                         <div class="media-body">
-                            <h4 class="media-heading">环太平洋<a href="play.html" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
+                            <h4 class="media-heading">环太平洋<a href="{{ url_for('home.play') }}" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
                             该片主要讲述了人类为了抵抗怪兽的进攻，研制出了高大的机器战士与来犯怪兽进行对抗的故事。
                         </div>
                     </div>
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="play.html">
-                                <img class="media-object" src="holder.js/131x83" alt="环太平洋">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">环太平洋<a href="play.html" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
-                            该片主要讲述了人类为了抵抗怪兽的进攻，研制出了高大的机器战士与来犯怪兽进行对抗的故事。
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="play.html">
-                                <img class="media-object" src="holder.js/131x83" alt="环太平洋">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">环太平洋<a href="play.html" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
-                            该片主要讲述了人类为了抵抗怪兽的进攻，研制出了高大的机器战士与来犯怪兽进行对抗的故事。
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="play.html">
-                                <img class="media-object" src="holder.js/131x83" alt="环太平洋">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">环太平洋<a href="play.html" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
-                            该片主要讲述了人类为了抵抗怪兽的进攻，研制出了高大的机器战士与来犯怪兽进行对抗的故事。
-                        </div>
-                    </div>
-                    <div class="media">
-                        <div class="media-left">
-                            <a href="play.html">
-                                <img class="media-object" src="holder.js/131x83" alt="环太平洋">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">环太平洋<a href="play.html" class="label label-primary pull-right"><span class="glyphicon glyphicon-play"></span>播放影片</a></h4>
-                            该片主要讲述了人类为了抵抗怪兽的进攻，研制出了高大的机器战士与来犯怪兽进行对抗的故事。
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <div class="col-md-12 text-center" style="margin-top:6px;">
                     <nav aria-label="Page navigation">
