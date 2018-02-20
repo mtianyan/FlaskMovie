@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>微电影管理系统</title>
+     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="{{ url_for('static',filename='base/images/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='fonts/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='ionicons/css/ionicons.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/dist/css/AdminLTE.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='admin/dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='admin/plugins/datepicker/datepicker3.css') }}">
+    <style>
+        *{
+            font-family:"Microsoft YaHei";
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            vertical-align:middle;
+            text-align:center;
+        }
+    </style>
+    {% block css %} {% endblock %}
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+       <a href="{{ url_for('admin.index') }}" class="logo">
+            <span class="logo-mini"><img src="{{ url_for('static',filename='base/images/logo.png') }}" style="height:40px;width:40px;">电影系统</span>
+            <span class="logo-lg"><img src="{{ url_for('static',filename='base/images/logo.png') }}" style="height:40px;width:40px;">微电影管理系统</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">下拉菜单</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <img src="{{ url_for('static',filename='admin/dist/img/user2-160x160.jpg') }}"
+                                 class="user-image" alt="User Image">
+                            <span class="hidden-xs">xxx</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                               <img src="{{ url_for('static',filename='admin/dist/img/user2-160x160.jpg') }}"
+                                     class="img-circle" alt="User Image">
+                                <p>
+                                    xxx
+                                    <small>2017-06-01</small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ url_for('admin.pwd') }}" class="btn btn-default btn-flat">修改密码</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{{ url_for('admin.logout') }}" class="btn btn-default btn-flat">退出系统</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="{{ url_for('static',filename='admin/dist/img/user2-160x160.jpg') }}" class="img-circle"
+                         alt="User Image">
+                </div>
+                <div class="pull-left info">
+                    <p>用户xxx</p>
+                    <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+                </div>
+            </div>
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="搜索...">
+                    <span class="input-group-btn">
+                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                                class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </form>
+            {% include "admin/grid.html" %}
+        </section>
+    </aside>
+    <div class="content-wrapper">
+    <!--内容-->
+        {% block content %} {% endblock %}
+    <!--内容-->
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>版本</b> 1.0
+        </div>
+        <strong>版权 &copy; 2018-2018 归<a href="https://www.jianshu.com/u/db9a7a0daa1f">mtianyan</a>.</strong> 所有
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>
+<script src="{{ url_for('static',filename='admin/plugins/jQuery/jQuery-2.2.0.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/plugins/fastclick/fastclick.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/dist/js/app.min.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/dist/js/demo.js') }}"></script>
+<script src="//cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+<script src="{{ url_for('static',filename='admin/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
+<script src="{{ url_for('static',filename='admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js') }}" charset="UTF-8"></script>
+        {% block js %} {% endblock %}
+</body>
+</html>

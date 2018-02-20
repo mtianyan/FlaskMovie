@@ -390,23 +390,23 @@
 <script src="../static/admin/plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="../static/admin/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js" charset="UTF-8"></script>
 <!--播放页面-->
-<script src="../static/jwplayer/jwplayer.js"></script>
+<script src="{{ url_for('static',filename='jwplayer/jwplayer.js') }}"></script>
 <script type="text/javascript">
     jwplayer.key = "P9VTqT/X6TSP4gi/hy1wy23BivBhjdzVjMeOaQ==";
 
 </script>
 <script type="text/javascript">
     jwplayer("moviecontainer").setup({
-        flashplayer: "../static/jwplayer/jwplayer.flash.swf",
+        flashplayer: "{{ url_for('static',filename='jwplayer/jwplayer.flash.swf') }}",
         playlist: [{
-            file: "../static/video/htpy.mp4",
+            file: "{{ url_for('static',filename='video/htpy.mp4') }}",
             title: "环太平洋"
         }],
         modes: [{
             type: "html5"
         }, {
             type: "flash",
-            src: "../static/jwplayer/jwplayer.flash.swf"
+            src: "{{ url_for('static',filename='jwplayer/jwplayer.flash.swf') }}"
         }, {
             type: "download"
         }],

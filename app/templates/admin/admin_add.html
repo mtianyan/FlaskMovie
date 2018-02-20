@@ -1,0 +1,71 @@
+{% extends 'admin/admin.html' %}
+{% block css %}
+    <style>
+        *{
+            font-family:"Microsoft YaHei";
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            vertical-align:middle;
+            text-align:center;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+        <!--内容-->
+        <section class="content-header">
+            <h1>微电影管理系统</h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 管理员管理</a></li>
+                <li class="active">添加管理员</li>
+            </ol>
+        </section>
+        <section class="content" id="showcontent">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">添加管理员</h3>
+                        </div>
+                        <form role="form">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="input_name">管理员名称</label>
+                                    <input type="text" class="form-control" id="input_name" placeholder="请输入管理员名称！">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_pwd">管理员密码</label>
+                                    <input type="password" class="form-control" id="input_pwd" placeholder="请输入管理员密码！">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_re_pwd">管理员重复密码</label>
+                                    <input type="password" class="form-control" id="input_re_pwd"
+                                           placeholder="请输入管理员重复密码！">
+                                </div>
+                                <div class="form-group">
+                                    <label for="input_role_id">所属角色</label>
+                                    <select class="form-control" id="input_role_id">
+                                        <option value="0">---请选择所属角色---</option>
+                                        <option value="1">xxx</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-primary">添加</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--内容-->
+{% endblock %}
+
+{% block js %}
+    <script>
+    $(document).ready(function(){
+        $("#g-11").addClass("active");
+        $("#g-11-1").addClass("active");
+    });
+</script>
+{% endblock %}
