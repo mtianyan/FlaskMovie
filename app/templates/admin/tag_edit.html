@@ -1,0 +1,68 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+    <!--内容-->
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 标签管理</a></li>
+            <li class="active">修改标签</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">修改标签</h3>
+                    </div>
+                    <form role="form" method="post">
+                        <div class="box-body">
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            {% for msg in get_flashed_messages(category_filter=["err"]) %}
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-ban"></i> 操作失败</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+                                <label for="input_name">{{ form.name.label }}</label>
+                                {#                                    <input type="text" class="form-control" id="input_name" placeholder="请输入标签名称！">#}
+                                {{ form.name(value=tag.name) }}
+                                {% for err in form.name.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--内容-->
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $("#g-2").addClass("active");
+            $("#g-2-1").addClass("active");
+        });
+    </script>
+{% endblock %}

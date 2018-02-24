@@ -4,6 +4,6 @@ __date__ = '2017/8/26 17:06'
 
 from flask import Blueprint
 
-home = Blueprint("home",__name__)
+home = Blueprint("home", __name__)
 
 import app.home.views

@@ -18,23 +18,37 @@
         <a href=""><b>mtianyan微电影后台</b></a>
     </div>
     <div class="login-box-body">
-        <p class="login-box-msg"></p>
-        <form action="" method="post" id="form-data">
+        {% for msg in get_flashed_messages() %}
+            <p class="login-box-msg" style="color: red">{{ msg }}</p>
+        {% endfor %}
+        <form method="post" id="form-data">
             <div class="form-group has-feedback">
-                <input name="user" type="text" class="form-control" placeholder="请输入账号！">
+                {#                <input name="user" type="text" class="form-control" placeholder="请输入账号！">#}
+                {{ form.account }}
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                <div class="col-md-12" id="input_user"></div>
+                {% for err in form.account.errors %}
+                    <div class="col-md-12">
+                        <p style="color: red">{{ err }}</p>
+                    </div>
+                {% endfor %}
             </div>
             <div class="form-group has-feedback">
-                <input name="pwd" type="password" class="form-control" placeholder="请输入密码！">
+                {#                <input name="pwd" type="password" class="form-control" placeholder="请输入密码！">#}
+                {{ form.pwd }}
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                <div class="col-md-12" id="input_pwd"></div>
+                {% for err in form.pwd.errors %}
+                    <div class="col-md-12">
+                        <p style="color: red">{{ err }}</p>
+                    </div>
+                {% endfor %}
             </div>
             <div class="row">
                 <div class="col-xs-8">
                 </div>
                 <div class="col-xs-4">
-                    <a id="btn-sub" type="submit" class="btn btn-primary btn-block btn-flat">登录</a>
+                    {#                    <a id="btn-sub" type="submit" class="btn btn-primary btn-block btn-flat">登录</a>#}
+                    {{ form.csrf_token }}
+                    {{ form.submit }}
                 </div>
             </div>
         </form>

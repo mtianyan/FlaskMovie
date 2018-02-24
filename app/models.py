@@ -1,25 +1,14 @@
 # _*_ coding: utf-8 _*_
-from datetime import datetime
-
 __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:05'
 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-app = Flask(__name__)
-# 用于连接数据的数据库。
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:ty158917@139.199.189.211:3306/movie"
-# app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:tp158917@127.0.0.1:3306/movie"
-# 如果设置成 True (默认情况)，Flask-SQLAlchemy 将会追踪对象的修改并且发送信号。
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-
-db = SQLAlchemy(app)
-
+from datetime import datetime
+from app import db
 
 # 会员数据模型
 class User(db.Model):
     __tablename__ = "user"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 昵称
     pwd = db.Column(db.String(100))  # 密码
@@ -41,6 +30,7 @@ class User(db.Model):
 # 会员登录日志
 class Userlog(db.Model):
     __tablename__ = "userlog"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     # （下面是设置外键的第一步）:指向user表的id字段
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # 所属会员
@@ -54,6 +44,7 @@ class Userlog(db.Model):
 # 标签
 class Tag(db.Model):
     __tablename__ = "tag"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 标题
     addtime = db.Column(db.DateTime, index=True, default=datetime.now)  # 添加电影时间
@@ -67,6 +58,7 @@ class Tag(db.Model):
 # 电影
 class Movie(db.Model):
     __tablename__ = "movie"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     title = db.Column(db.String(255), unique=True)  # 标题
     url = db.Column(db.String(255), unique=True)  # 地址
@@ -91,6 +83,7 @@ class Movie(db.Model):
 # 上映预告
 class Preview(db.Model):
     __tablename__ = "preview"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     title = db.Column(db.String(255), unique=True)  # 标题
     logo = db.Column(db.String(255), unique=True)  # 封面
@@ -103,6 +96,7 @@ class Preview(db.Model):
 # 评论
 class Comment(db.Model):
     __tablename__ = "comment"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     content = db.Column(db.Text)  # 评论内容
     # 关联外键第一步，还要去user表和movie表进行第二步
@@ -117,6 +111,7 @@ class Comment(db.Model):
 # 电影收藏
 class Moviecol(db.Model):
     __tablename__ = "moviecol"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     # 关联外键第一步，还要去user表和movie表进行第二步
     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))  # 所属电影
@@ -130,6 +125,7 @@ class Moviecol(db.Model):
 # 权限
 class Auth(db.Model):
     __tablename__ = "auth"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 名称
     url = db.Column(db.String(255), unique=True)  # 地址
@@ -142,6 +138,7 @@ class Auth(db.Model):
 # 角色
 class Role(db.Model):
     __tablename__ = "role"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 名称
     auths = db.Column(db.String(600))  # 角色权限列表
@@ -155,6 +152,7 @@ class Role(db.Model):
 # 管理员
 class Admin(db.Model):
     __tablename__ = "admin"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     name = db.Column(db.String(100), unique=True)  # 管理员账号
     pwd = db.Column(db.String(100))  # 管理员密码
@@ -175,6 +173,7 @@ class Admin(db.Model):
 # 管理员登录日志
 class Adminlog(db.Model):
     __tablename__ = "adminlog"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))  # 所属管理员
     ip = db.Column(db.String(100))  # 登录IP
@@ -187,6 +186,7 @@ class Adminlog(db.Model):
 # 操作日志
 class Oplog(db.Model):
     __tablename__ = "oplog"
+    __table_args__ = {"useexisting": True}
     id = db.Column(db.Integer, primary_key=True)  # 编号
     admin_id = db.Column(db.Integer, db.ForeignKey('admin.id'))  # 所属管理员
     ip = db.Column(db.String(100))  # 操作IP
@@ -196,9 +196,8 @@ class Oplog(db.Model):
     def __repr__(self):
         return "<Oplog %r>" % self.id
 
-
-if __name__ == "__main__":
-    db.create_all()
+# if __name__ == "__main__":
+#     db.create_all()
 
     # 测试数据的插入
 
