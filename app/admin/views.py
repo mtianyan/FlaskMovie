@@ -9,8 +9,8 @@ __date__ = '2017/8/26 17:06'
 from functools import wraps
 from . import admin
 from flask import render_template, redirect, url_for, flash, session, request
-from app.admin.forms import LoginForm, TagForm
-from app.models import Admin, Tag
+from app.admin.forms import LoginForm, TagForm, MovieForm
+from app.models import Admin, Tag, Movie
 
 
 def admin_login_req(f):
@@ -154,9 +154,10 @@ def tag_del(id=None):
 @admin_login_req
 def movie_add():
     """
-    编辑电影页面
+    添加电影页面
     """
-    return render_template("admin/movie_add.html")
+    form = MovieForm()
+    return render_template("admin/movie_add.html", form=form)
 
 
 @admin.route("/movie/list/")
