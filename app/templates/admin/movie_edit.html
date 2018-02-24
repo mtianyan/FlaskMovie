@@ -1,0 +1,205 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+    <!--内容-->
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 电影管理</a></li>
+            <li class="active">添加电影</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加电影</h3>
+                    </div>
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        <div class="box-body">
+                            {% for msg in get_flashed_messages(category_filter=["err"]) %}
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-ban"></i> 操作失败</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+                                <label for="input_title">{{ form.title.label }}</label>
+                                {#                                    <input type="text" class="form-control" id="input_title" placeholder="请输入片名！">#}
+                                {{ form.title(value=movie.title) }}
+                                {% for err in form.title.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_url">{{ form.url.label }}</label>
+                                {#                                    <input type="file" id="input_url">#}
+                                {{ form.url(value=movie.url) }}
+                                {% for err in form.url.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                <div style="margin-top:5px;">
+                                    <div id="moviecontainer"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input_info">{{ form.info.label }}</label>
+                                {#                                    <textarea class="form-control" rows="10" id="input_info"></textarea>#}
+                                {{ form.info }}
+                                {% for err in form.info.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_logo">{{ form.logo.label }}</label>
+                                {#                                    <input type="file" id="input_logo">#}
+                                {{ form.logo }}
+                                {% for err in form.logo.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                <img src="{{ url_for('static',filename='uploads/'+ movie.logo ) }}"
+                                     style="margin-top:5px;" class="img-responsive"
+                                     alt="">
+                            </div>
+                            <div class="form-group">
+                                <label for="input_star">{{ form.star.label }}</label>
+                                {{ form.star }}
+                                {% for err in form.star.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <select class="form-control" id="input_star">#}
+                                {#                                        <option value="1">1星</option>#}
+                                {#                                        <option value="2">2星</option>#}
+                                {#                                        <option value="3">3星</option>#}
+                                {#                                        <option value="4">4星</option>#}
+                                {#                                        <option value="5">5星</option>#}
+                                {#                                    </select>#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_tag_id">{{ form.tag_id.label }}</label>
+                                {{ form.tag_id }}
+                                {% for err in form.tag_id.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <select class="form-control" id="input_tag_id">#}
+                                {#                                        <option value="1">科幻</option>#}
+                                {#                                        <option value="2">冒险</option>#}
+                                {#                                        <option value="3">爱情</option>#}
+                                {#                                        <option value="4">动作</option>#}
+                                {#                                        <option value="5">战争</option>#}
+                                {#                                    </select>#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_area">{{ form.area.label }}</label>
+                                {{ form.area(value=movie.area) }}
+                                {% for err in form.area.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="text" class="form-control" id="input_area" placeholder="请输入地区！">#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_length">{{ form.length.label }}</label>
+                                {{ form.length(value=movie.length) }}
+                                {% for err in form.length.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="text" class="form-control" id="input_length" placeholder="请输入片长！">#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_release_time">{{ form.release_time.label }}</label>
+                                {{ form.release_time(value=movie.release_time) }}
+                                {% for err in form.release_time.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="text" class="form-control" id="input_release_time"#}
+                                {#                                           placeholder="请选择上映时间！">#}
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--内容-->
+{% endblock %}
+
+{% block js %}
+    <!--播放页面-->
+    <script src="{{ url_for('static',filename='jwplayer/jwplayer.js') }}"></script>
+    <script type="text/javascript">
+        jwplayer.key = "P9VTqT/X6TSP4gi/hy1wy23BivBhjdzVjMeOaQ==";
+    </script>
+    <script type="text/javascript">
+        jwplayer("moviecontainer").setup({
+            flashplayer: "{{ url_for('static',filename='jwplayer/jwplayer.flash.swf') }}",
+            playlist: [{
+                file: "{{ url_for('static',filename='uploads/'+movie.url) }}",
+                title: "{{ movie.title }}"
+            }],
+            modes: [{
+                type: "html5"
+            }, {
+                type: "flash",
+                src: "{{ url_for('static',filename='jwplayer/jwplayer.flash.swf') }}"
+            }, {
+                type: "download"
+            }],
+            skin: {
+                name: "vapor"
+            },
+            "playlist.position": "left",
+            "playlist.size": 200,
+            height: 250,
+            width: 387,
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#input_release_time').datepicker({
+                autoclose: true,
+                format: 'yyyy-mm-dd',
+                language: 'zh-CN',
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#g-3").addClass("active");
+            $("#g-3-1").addClass("active");
+        });
+    </script>
+{% endblock %}
