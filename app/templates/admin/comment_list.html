@@ -1,4 +1,5 @@
 {% extends 'admin/admin.html' %}
+{% import "ui/admin_page.html" as pg %}
 {% block css %}
     <style>
         *{
@@ -39,35 +40,46 @@
                             </div>
                         </div>
                         <div class="box-body box-comments">
-                            {% for v in range(1,11) %}
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            {% for v in page_data.items %}
                             <div class="box-comment">
                                 <img class="img-circle img-sm"
-                                     src="{{ url_for('static',filename='admin/dist/img/user3-128x128.jpg') }}" alt="User Image">
+                                     src="{{ url_for('static',filename='uploads/users/'+v.user.face) }}"
+                                     alt="User Image">
                                 <div class="comment-text">
                                     <span class="username">
-                                        小美
+                                        {{ v.user.name }}
                                         <span class="text-muted pull-right">
                                             <i class="fa fa-calendar" aria-hidden="true"></i>
                                             &nbsp;
-                                            2017-01-01 12:00:00
+                                            {{ v.addtime }}
                                         </span>
                                     </span>
-                                    关于电影<a>《环太平洋》</a>的评论：xxx
-                                    <br><a class="label label-danger pull-right">删除</a>
+                                    关于电影<a>《{{ v.movie.title }}》</a>的评论：{{ v.content }}
+                                    <br><a href="{{ url_for('admin.comment_del',id=v.id,  fp=page_data.page) }}"
+                                           class="label label-danger pull-right">删除</a>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
                         <div class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="#">首页</a></li>
-                                <li><a href="#">上一页</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">下一页</a></li>
-                                <li><a href="#">尾页</a></li>
-                            </ul>
+                            {#                            <ul class="pagination pagination-sm no-margin pull-right">#}
+                            {#                                <li><a href="#">首页</a></li>#}
+                            {#                                <li><a href="#">上一页</a></li>#}
+                            {#                                <li><a href="#">1</a></li>#}
+                            {#                                <li><a href="#">2</a></li>#}
+                            {#                                <li><a href="#">3</a></li>#}
+                            {#                                <li><a href="#">下一页</a></li>#}
+                            {#                                <li><a href="#">尾页</a></li>#}
+                            {#                            </ul>#}
+                            {{ pg.page(page_data,'admin.comment_list') }}
                         </div>
                     </div>
                 </div>

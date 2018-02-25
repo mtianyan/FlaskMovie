@@ -12,7 +12,7 @@ from functools import wraps
 from . import admin
 from flask import render_template, redirect, url_for, flash, session, request
 from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm
-from app.models import Admin, Tag, Movie, Preview, User
+from app.models import Admin, Tag, Movie, Preview, User, Comment
 from werkzeug.utils import secure_filename
 
 
@@ -406,13 +406,45 @@ def user_del(id=None):
     return redirect(url_for('admin.user_list', page=from_page))
 
 
-@admin.route("/comment/list/")
+@admin.route("/comment/list/<int:page>/", methods=["GET"])
 @admin_login_req
-def comment_list():
+def comment_list(page=None):
     """
     评论列表
     """
-    return render_template("admin/comment_list.html")
+    if page is None:
+        page = 1
+    # 通过评论join查询其相关的movie，和相关的用户。
+    # 然后过滤出其中电影id等于评论电影id的电影，和用户id等于评论用户id的用户
+    page_data = Comment.query.join(
+        Movie
+    ).join(
+        User
+    ).filter(
+        Movie.id == Comment.movie_id,
+        User.id == Comment.user_id
+    ).order_by(
+        Comment.addtime.desc()
+    ).paginate(page=page, per_page=1)
+    return render_template("admin/comment_list.html", page_data=page_data)
+
+
+@admin.route("/comment/del/<int:id>/", methods=["GET"])
+@admin_login_req
+def comment_del(id=None):
+    """
+    删除评论
+    """
+    # 因为删除当前页。假如是最后一页，这一页已经不见了。回不到。
+    from_page = int(request.args.get('fp')) - 1
+    # 此处考虑全删完了，没法前挪的情况，0被视为false
+    if not from_page:
+        from_page = 1
+    comment = Comment.query.get_or_404(int(id))
+    db.session.delete(comment)
+    db.session.commit()
+    flash("删除评论成功！", "ok")
+    return redirect(url_for('admin.comment_list', page=from_page))
 
 
 @admin_login_req
