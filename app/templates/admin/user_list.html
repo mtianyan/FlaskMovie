@@ -1,5 +1,5 @@
 {% extends 'admin/admin.html' %}
-
+{% import "ui/admin_page.html" as pg %}
 {% block content %}
         <!--内容-->
         <section class="content-header">
@@ -28,6 +28,14 @@
                             </div>
                         </div>
                         <div class="box-body table-responsive no-padding">
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
                             <table class="table table-hover">
                                 <tbody>
                                 <tr>
@@ -40,39 +48,48 @@
                                     <th>注册时间</th>
                                     <th>操作事项</th>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>拓荒者</td>
-                                    <td>1780316635@qq.com</td>
-                                    <td>13700632835</td>
+                                {% for v in page_data.items %}
+                                    <tr>
+                                        <td>{{ v.id }}</td>
+                                        <td>{{ v.name }}</td>
+                                        <td>{{ v.email }}</td>
+                                        <td>{{ v.phone }}</td>
                                     <td>
-                                        <img data-src="holder.js/50x50" class="img-responsive center-block" alt="">
+                                        <img style="width: 50px;height: 50px;"
+                                             src="{{ url_for('static', filename='uploads/users/'+v.face) }}"
+                                             class="img-responsive center-block" alt="">
                                     </td>
                                     <td>正常/冻结</td>
-                                    <td>2017-06-01 12:00:00</td>
+                                        <td>{{ v.addtime }}</td>
                                     <td>
-                                        <a class="label label-success" href="{{ url_for('admin.user_view') }}">查看</a>
+                                        <a class="label label-success"
+                                           href="{{ url_for('admin.user_view', id=v.id, fp=page_data.page) }}">查看</a>
                                         &nbsp;
                                         <a class="label label-info">解冻</a>
                                         &nbsp;
                                         <a class="label label-warning">冻结</a>
                                         &nbsp;
-                                        <a class="label label-danger">删除</a>
+                                        <a href="{{ url_for('admin.user_del', id=v.id, fp=page_data.page) }}"
+                                           class="label label-danger">删除</a>
                                     </td>
                                 </tr>
+                                {% endfor %}
+
+
                                 </tbody>
                             </table>
                         </div>
                         <div class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="#">首页</a></li>
-                                <li><a href="#">上一页</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">下一页</a></li>
-                                <li><a href="#">尾页</a></li>
-                            </ul>
+                            {#                            <ul class="pagination pagination-sm no-margin pull-right">#}
+                            {#                                <li><a href="#">首页</a></li>#}
+                            {#                                <li><a href="#">上一页</a></li>#}
+                            {#                                <li><a href="#">1</a></li>#}
+                            {#                                <li><a href="#">2</a></li>#}
+                            {#                                <li><a href="#">3</a></li>#}
+                            {#                                <li><a href="#">下一页</a></li>#}
+                            {#                                <li><a href="#">尾页</a></li>#}
+                            {#                            </ul>#}
+                            {{ pg.page(page_data,'admin.user_list') }}
                         </div>
                     </div>
                 </div>

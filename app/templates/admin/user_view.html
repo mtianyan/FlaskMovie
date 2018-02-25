@@ -26,7 +26,8 @@
         <section class="content-header">
             <h1>微电影管理系统</h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 会员管理</a></li>
+                <li><a href="{{ url_for('admin.user_list', page=from_page) }}"><i class="fa fa-dashboard"></i> 会员管理</a>
+                </li>
                 <li class="active">查看会员</li>
             </ol>
         </section>
@@ -42,42 +43,44 @@
                                 <tbody>
                                 <tr>
                                     <td class="td_bd">编号：</td>
-                                    <td>1</td>
+                                    <td>{{ user.id }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">昵称：</td>
-                                    <td>拓荒者</td>
+                                    <td>{{ user.name }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">邮箱：</td>
-                                    <td>1780316635@qq.com</td>
+                                    <td>{{ user.email }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">手机：</td>
-                                    <td>13700632835</td>
+                                    <td>{{ user.phone }}</td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">头像：</td>
                                     <td>
-                                        <img data-src="holder.js/100x100" class="img-responsive" alt="">
+                                        <img style="width: 50px; height: 50px;"
+                                             src="{{ url_for('static', filename='uploads/users/'+user.face) }}"
+                                             class="img-responsive" alt="">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">注册时间：</td>
                                     <td>
-                                        2017-01-01 12:00:00
+                                        {{ user.addtime }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">唯一标志符：</td>
                                     <td>
-                                        xxxxxx
+                                        {{ user.uuid }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="td_bd">个性简介：</td>
                                     <td>
-                                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                        {{ user.info }}
                                     </td>
                                 </tr>
                                 </tbody>

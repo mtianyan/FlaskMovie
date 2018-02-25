@@ -12,7 +12,7 @@ from functools import wraps
 from . import admin
 from flask import render_template, redirect, url_for, flash, session, request
 from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm
-from app.models import Admin, Tag, Movie, Preview
+from app.models import Admin, Tag, Movie, Preview, User
 from werkzeug.utils import secure_filename
 
 
@@ -361,22 +361,49 @@ def preview_edit(id):
     return render_template("admin/preview_edit.html", form=form, preview=preview)
 
 
-@admin.route("/user/list/")
+@admin.route("/user/list/<int:page>/", methods=["GET"])
 @admin_login_req
-def user_list():
+def user_list(page=None):
     """
     会员列表
     """
-    return render_template("admin/user_list.html")
+    if page is None:
+        page = 1
+    page_data = User.query.order_by(
+        User.addtime.desc()
+    ).paginate(page=page, per_page=1)
+    return render_template("admin/user_list.html", page_data=page_data)
 
 
-@admin.route("/user/view/")
+@admin.route("/user/view/<int:id>/", methods=["GET"])
 @admin_login_req
-def user_view():
+def user_view(id=None):
     """
-    查看会员
+    查看会员详情
     """
-    return render_template("admin/user_view.html")
+    from_page = request.args.get('fp')
+    if not from_page:
+        from_page = 1
+    user = User.query.get_or_404(int(id))
+    return render_template("admin/user_view.html", user=user, from_page=from_page)
+
+
+@admin.route("/user/del/<int:id>/", methods=["GET"])
+@admin_login_req
+def user_del(id=None):
+    """
+    删除会员
+    """
+    # 因为删除当前页。假如是最后一页，这一页已经不见了。回不到。
+    from_page = int(request.args.get('fp')) - 1
+    # 此处考虑全删完了，没法前挪的情况，0被视为false
+    if not from_page:
+        from_page = 1
+    user = User.query.get_or_404(int(id))
+    db.session.delete(user)
+    db.session.commit()
+    flash("删除会员成功！", "ok")
+    return redirect(url_for('admin.user_list', page=from_page))
 
 
 @admin.route("/comment/list/")
