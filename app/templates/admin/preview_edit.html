@@ -1,0 +1,73 @@
+{% extends 'admin/admin.html' %}
+
+{% block content %}
+    <!--内容-->
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 预告管理</a></li>
+            <li class="active">修改预告</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">修改预告</h3>
+                    </div>
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        <div class="box-body">
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+                                <label for="input_title">{{ form.title.label }}</label>
+                                {#                                    <input type="text" class="form-control" id="input_title" placeholder="请输入预告标题！">#}
+                                {{ form.title }}
+                                {% for err in form.title.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_logo">{{ form.logo.label }}</label>
+                                {{ form.logo }}
+                                {% for err in form.logo.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="file" id="input_logo">#}
+                                <img src="{{ url_for('static', filename='uploads/'+preview.logo) }}"
+                                     style="margin-top:5px;" class="img-responsive"
+                                     alt="">
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--内容-->
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function () {
+            $("#g-4").addClass("active");
+            $("#g-4-1").addClass("active");
+        });
+    </script>
+{% endblock %}

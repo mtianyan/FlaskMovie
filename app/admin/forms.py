@@ -177,3 +177,30 @@ class MovieForm(FlaskForm):
             "class": "btn btn-primary",
         }
     )
+
+
+class PreviewForm(FlaskForm):
+    title = StringField(
+        label="预告标题",
+        validators=[
+            DataRequired("预告标题不能为空！")
+        ],
+        description="预告标题",
+        render_kw={
+            "class": "form-control",
+            "placeholder": "请输入预告标题！"
+        }
+    )
+    logo = FileField(
+        label="预告封面",
+        validators=[
+            DataRequired("预告封面不能为空！")
+        ],
+        description="预告封面",
+    )
+    submit = SubmitField(
+        '编辑',
+        render_kw={
+            "class": "btn btn-primary",
+        }
+    )
