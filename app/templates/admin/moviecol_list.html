@@ -1,92 +1,102 @@
 {% extends 'admin/admin.html' %}
+{% import "ui/admin_page.html" as pg %}
 {% block css %}
     <style>
-        *{
-            font-family:"Microsoft YaHei";
+        * {
+            font-family: "Microsoft YaHei";
         }
-        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-            vertical-align:middle;
-            text-align:center;
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            vertical-align: middle;
+            text-align: center;
         }
 
     </style>
 {% endblock %}
 {% block content %}
-     <!--内容-->
-        <section class="content-header">
-            <h1>微电影管理系统</h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 收藏管理</a></li>
-                <li class="active">收藏列表</li>
-            </ol>
-        </section>
-        <section class="content" id="showcontent">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title">收藏列表</h3>
-                            <div class="box-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control pull-right"
-                                           placeholder="请输入关键字...">
+    <!--内容-->
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 收藏管理</a></li>
+            <li class="active">收藏列表</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">收藏列表</h3>
+                        <div class="box-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control pull-right"
+                                       placeholder="请输入关键字...">
 
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
-                                        </button>
-                                    </div>
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tbody>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                </button>
+                                <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                {{ msg }}
+                            </div>
+                        {% endfor %}
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>编号</th>
+                                <th>电影</th>
+                                <th>用户</th>
+                                <th>添加时间</th>
+                                <th>操作事项</th>
+                            </tr>
+                            {% for v in page_data.items %}
                                 <tr>
-                                    <th>编号</th>
-                                    <th>电影</th>
-                                    <th>用户</th>
-                                    <th>添加时间</th>
-                                    <th>操作事项</th>
-                                </tr>
-                                {% for v in range(1,11) %}
-                                <tr>
-                                    <td>1</td>
-                                    <td>环太平洋</td>
-                                    <td>张小明</td>
-                                    <td>2017-06-01</td>
+                                    <td>{{ v.id }}</td>
+                                    <td>{{ v.movie.title }}</td>
+                                    <td>{{ v.user.name }}</td>
+                                    <td>{{ v.addtime }}</td>
                                     <td>
-                                        <a class="label label-success">编辑</a>
-                                        &nbsp;
-                                        <a class="label label-danger">删除</a>
+                                        <a href="{{ url_for('admin.moviecol_del',id=v.id,fp=page_data.page) }}"
+                                           class="label label-danger">删除</a>
                                     </td>
                                 </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="box-footer clearfix">
-                            <ul class="pagination pagination-sm no-margin pull-right">
-                                <li><a href="#">首页</a></li>
-                                <li><a href="#">上一页</a></li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">下一页</a></li>
-                                <li><a href="#">尾页</a></li>
-                            </ul>
-                        </div>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer clearfix">
+                        {#                            <ul class="pagination pagination-sm no-margin pull-right">#}
+                        {#                                <li><a href="#">首页</a></li>#}
+                        {#                                <li><a href="#">上一页</a></li>#}
+                        {#                                <li><a href="#">1</a></li>#}
+                        {#                                <li><a href="#">2</a></li>#}
+                        {#                                <li><a href="#">3</a></li>#}
+                        {#                                <li><a href="#">下一页</a></li>#}
+                        {#                                <li><a href="#">尾页</a></li>#}
+                        {#                            </ul>#}
+                        {{ pg.page(page_data,'admin.moviecol_list') }}
                     </div>
                 </div>
             </div>
-        </section>
-        <!--内容-->
+        </div>
+    </section>
+    <!--内容-->
 {% endblock %}
 
 {% block js %}
     <script>
-    $(document).ready(function(){
-        $("#g-7").addClass("active");
-        $("#g-7-1").addClass("active");
-    });
-</script>
+        $(document).ready(function () {
+            $("#g-7").addClass("active");
+            $("#g-7-1").addClass("active");
+        });
+    </script>
 {% endblock %}

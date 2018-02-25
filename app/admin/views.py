@@ -12,7 +12,7 @@ from functools import wraps
 from . import admin
 from flask import render_template, redirect, url_for, flash, session, request
 from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm
-from app.models import Admin, Tag, Movie, Preview, User, Comment
+from app.models import Admin, Tag, Movie, Preview, User, Comment, Moviecol
 from werkzeug.utils import secure_filename
 
 
@@ -448,12 +448,42 @@ def comment_del(id=None):
 
 
 @admin_login_req
-@admin.route("/moviecol/list/")
-def moviecol_list():
+@admin.route("/moviecol/list/<int:page>/", methods=["GET"])
+def moviecol_list(page=None):
     """
     电影收藏
     """
-    return render_template("admin/moviecol_list.html")
+    if page is None:
+        page = 1
+    page_data = Moviecol.query.join(
+        Movie
+    ).join(
+        User
+    ).filter(
+        Movie.id == Moviecol.movie_id,
+        User.id == Moviecol.user_id
+    ).order_by(
+        Moviecol.addtime.desc()
+    ).paginate(page=page, per_page=1)
+    return render_template("admin/moviecol_list.html", page_data=page_data)
+
+
+@admin.route("/moviecol/del/<int:id>/", methods=["GET"])
+@admin_login_req
+def moviecol_del(id=None):
+    """
+    收藏删除
+    """
+    # 因为删除当前页。假如是最后一页，这一页已经不见了。回不到。
+    from_page = int(request.args.get('fp')) - 1
+    # 此处考虑全删完了，没法前挪的情况，0被视为false
+    if not from_page:
+        from_page = 1
+    moviecol = Moviecol.query.get_or_404(int(id))
+    db.session.delete(moviecol)
+    db.session.commit()
+    flash("删除收藏成功！", "ok")
+    return redirect(url_for('admin.moviecol_list', page=from_page))
 
 
 @admin.route("/oplog/list/")
