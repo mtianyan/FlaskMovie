@@ -10,12 +10,32 @@ from functools import wraps
 from . import admin
 from flask import render_template, redirect, url_for, flash, session, request, g
 from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm, PwdForm
-from app.models import Admin, Tag, Movie, Preview, User, Comment, Moviecol
+from app.models import Admin, Tag, Movie, Preview, User, Comment, Moviecol, Oplog, Adminlog, Userlog
 from werkzeug.utils import secure_filename
 
 
-# 修改文件名称
+@admin.context_processor
+def tpl_extra():
+    """
+    上下应用处理器
+    """
+    try:
+        admin = Admin.query.filter_by(name=session["admin"]).first()
+    except:
+        admin = None
+    data = dict(
+        online_time=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        logo="mtianyan.jpg",
+        admin=admin,
+    )
+    # 之后直接传个admin。取admin face字段即可
+    return data
+
+
 def change_filename(filename):
+    """
+    修改文件名称
+    """
     fileinfo = os.path.splitext(filename)
     filename = datetime.now().strftime("%Y%m%d%H%M%S") + str(uuid.uuid4().hex) + fileinfo[-1]
     return filename
@@ -50,9 +70,16 @@ def login():
             return redirect(url_for("admin.login"))
         # 如果是正确的，就要定义session的会话进行保存。
         session["admin"] = data["account"]
+        session["admin_id"] = admin.id
         # admin = Admin.query.filter_by(name=session["admin"]).first()
-        g.logo = "mtianyan.jpg"
+        # g.logo = "mtianyan.jpg"
         # 后台头像实现的可能解决方法，将当前管理员的头像信息，存在session中。
+        adminlog = Adminlog(
+            admin_id=admin.id,
+            ip=request.remote_addr,
+        )
+        db.session.add(adminlog)
+        db.session.commit()
         return redirect(request.args.get("next") or url_for("admin.index"))
     return render_template("admin/login.html", form=form)
 
@@ -64,7 +91,8 @@ def logout():
     后台注销登录
     """
     session.pop("admin", None)
-    g.logo = ""
+    session.pop("admin_id", None)
+    # g.logo = ""
     return redirect(url_for("admin.login"))
 
 
@@ -115,6 +143,13 @@ def tag_add():
             name=data["name"]
         )
         db.session.add(tag)
+        db.session.commit()
+        oplog = Oplog(
+            admin_id=session["admin_id"],
+            ip=request.remote_addr,
+            reason="添加标签%s" % data["name"]
+        )
+        db.session.add(oplog)
         db.session.commit()
         flash("标签添加成功", "ok")
         redirect(url_for("admin.tag_add"))
@@ -499,31 +534,58 @@ def moviecol_del(id=None):
     return redirect(url_for('admin.moviecol_list', page=from_page))
 
 
-@admin.route("/oplog/list/")
+@admin.route("/oplog/list/<int:page>/", methods=["GET"])
 @admin_login_req
-def oplog_list():
+def oplog_list(page=None):
     """
     操作日志管理
     """
-    return render_template("admin/oplog_list.html")
+    if page is None:
+        page = 1
+    page_data = Oplog.query.join(
+        Admin
+    ).filter(
+        Admin.id == Oplog.admin_id,
+    ).order_by(
+        Oplog.addtime.desc()
+    ).paginate(page=page, per_page=10)
+    return render_template("admin/oplog_list.html", page_data=page_data)
 
 
-@admin.route("/adminloginlog/list/")
+@admin.route("/adminloginlog/list/<int:page>/", methods=["GET"])
 @admin_login_req
-def adminloginlog_list():
+def adminloginlog_list(page=None):
     """
-    管理员日志列表
+    管理员登录日志
     """
-    return render_template("admin/adminloginlog_list.html")
+    if page is None:
+        page = 1
+    page_data = Adminlog.query.join(
+        Admin
+    ).filter(
+        Admin.id == Adminlog.admin_id,
+    ).order_by(
+        Adminlog.addtime.desc()
+    ).paginate(page=page, per_page=1)
+    return render_template("admin/adminloginlog_list.html", page_data=page_data)
 
 
-@admin.route("/userloginlog/list/")
+@admin.route("/userloginlog/list/<int:page>/", methods=["GET"])
 @admin_login_req
-def userloginlog_list():
+def userloginlog_list(page=None):
     """
-    会员日志列表
+    会员登录日志列表
     """
-    return render_template("admin/userloginlog_list.html")
+    if page is None:
+        page = 1
+    page_data = Userlog.query.join(
+        User
+    ).filter(
+        User.id == Userlog.user_id,
+    ).order_by(
+        Userlog.addtime.desc()
+    ).paginate(page=page, per_page=2)
+    return render_template("admin/userloginlog_list.html", page_data=page_data)
 
 
 @admin.route("/role/add/")

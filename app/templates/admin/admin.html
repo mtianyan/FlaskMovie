@@ -40,17 +40,17 @@
                 <ul class="nav navbar-nav">
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ url_for('static',filename='admin/dist/img/'+g.logo) }}"
+                            <img src="{{ url_for('static',filename='admin/dist/img/'+logo) }}"
                                  class="user-image" alt="User Image">
                             <span class="hidden-xs">{{ session['admin'] }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
-                                <img src="{{ url_for('static',filename='admin/dist/img/'+g.logo) }}"
+                                <img src="{{ url_for('static',filename='admin/dist/img/'+logo) }}"
                                      class="img-circle" alt="User Image">
                                 <p>
                                     {{ session['admin'] }}
-                                    <small>2017-06-01</small>
+                                    <small>{{ online_time }}</small>
                                 </p>
                             </li>
                             <li class="user-footer">
@@ -71,7 +71,7 @@
         <section class="sidebar">
             <div class="user-panel">
                 <div class="pull-left image">
-                    <img src="{{ url_for('static',filename='admin/dist/img/'+g.logo) }}" class="img-circle"
+                    <img src="{{ url_for('static',filename='admin/dist/img/'+logo) }}" class="img-circle"
                          alt="User Image">
                 </div>
                 <div class="pull-left info">
