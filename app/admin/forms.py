@@ -2,9 +2,9 @@
 __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:06'
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, FileField, TextAreaField, SelectField, SelectMultipleField
 from wtforms.validators import DataRequired, ValidationError
-from app.models import Admin, Tag
+from app.models import Admin, Tag, Auth
 
 
 class LoginForm(FlaskForm):
@@ -245,3 +245,68 @@ class PwdForm(FlaskForm):
         ).first()
         if not admin.check_pwd(pwd):
             raise ValidationError("旧密码错误！")
+
+
+class AuthForm(FlaskForm):
+    name = StringField(
+        label="权限名称",
+        validators=[
+            DataRequired("权限名称不能为空！")
+        ],
+        description="权限名称",
+        render_kw={
+            "class": "form-control",
+            "placeholder": "请输入权限名称！"
+        }
+    )
+    url = StringField(
+        label="权限地址",
+        validators=[
+            DataRequired("权限地址不能为空！")
+        ],
+        description="权限地址",
+        render_kw={
+            "class": "form-control",
+            "placeholder": "请输入权限地址！"
+        }
+    )
+    submit = SubmitField(
+        '编辑',
+        render_kw={
+            "class": "btn btn-primary",
+        }
+    )
+
+
+class RoleForm(FlaskForm):
+    name = StringField(
+        label="角色名称",
+        validators=[
+            DataRequired("角色名称不能为空！")
+        ],
+        description="角色名称",
+        render_kw={
+            "class": "form-control",
+            "placeholder": "请输入角色名称！"
+        }
+    )
+    # 多选框
+    auths = SelectMultipleField(
+        label="权限列表",
+        validators=[
+            DataRequired("权限列表不能为空！")
+        ],
+        # 动态数据填充选择栏：列表生成器
+        coerce=int,
+        choices=[(v.id, v.name) for v in Auth.query.all()],
+        description="权限列表",
+        render_kw={
+            "class": "form-control",
+        }
+    )
+    submit = SubmitField(
+        '编辑',
+        render_kw={
+            "class": "btn btn-primary",
+        }
+    )

@@ -10,9 +10,6 @@
             text-align: center;
         }
 
-        #auth_list .col-md-12, #auth_list .col-md-2 {
-            padding: 0px;
-        }
     </style>
 {% endblock %}
 {% block content %}
@@ -20,8 +17,8 @@
     <section class="content-header">
         <h1>微电影管理系统</h1>
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> 角色管理</a></li>
-            <li class="active">添加角色</li>
+            <li><a href="#"><i class="fa fa-dashboard"></i> 权限管理</a></li>
+            <li class="active">修改权限</li>
         </ol>
     </section>
     <section class="content" id="showcontent">
@@ -29,7 +26,7 @@
             <div class="col-md-12">
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">添加角色</h3>
+                        <h3 class="box-title">修改权限</h3>
                     </div>
                     <form role="form" method="post">
                         <div class="box-body">
@@ -43,28 +40,19 @@
                             {% endfor %}
                             <div class="form-group">
                                 <label for="input_name">{{ form.name.label }}</label>
-                                {#                                    <input type="text" class="form-control" id="input_name" placeholder="请输入角色名称！">#}
-                                {{ form.name }}
+                                {{ form.name(value=auth.name) }}
                                 {% for err in form.name.errors %}
                                     <div class="col-md-12">
                                         <p style="color: red">{{ err }}</p>
                                     </div>
                                 {% endfor %}
-
+                                {#                                    <input type="text" class="form-control" id="input_name" placeholder="请输入权限名称！">#}
                             </div>
-                            <div class="form-group" id="auth_list">
-                                <div class="col-md-12">
-                                    <label>操作权限</label>
-                                </div>
-                                {#                                    {% for v in range(1,19) %}#}
-                                {#                                    <div class="col-md-2">#}
-                                {#                                        <label>#}
-                                {#                                            <input type="checkbox" name="input_url"> 添加标签#}
-                                {#                                        </label>#}
-                                {#                                    </div>#}
-                                {#                                    {% endfor %}#}
-                                {{ form.auths }}
-                                {% for err in form.auths.errors %}
+                            <div class="form-group">
+                                <label for="input_url">{{ form.url.label }}</label>
+                                {#                                    <input type="text" class="form-control" id="input_url" placeholder="请输入权限地址！">#}
+                                {{ form.url(value=auth.url) }}
+                                {% for err in form.url.errors %}
                                     <div class="col-md-12">
                                         <p style="color: red">{{ err }}</p>
                                     </div>
@@ -72,9 +60,9 @@
                             </div>
                         </div>
                         <div class="box-footer">
-                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
                             {{ form.csrf_token }}
                             {{ form.submit }}
+                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
                         </div>
                     </form>
                 </div>
@@ -87,8 +75,8 @@
 {% block js %}
     <script>
         $(document).ready(function () {
-            $("#g-10").addClass("active");
-            $("#g-10-1").addClass("active");
+            $("#g-9").addClass("active");
+            $("#g-9-1").addClass("active");
         });
     </script>
 {% endblock %}
