@@ -18,8 +18,11 @@
         <a href=""><b>mtianyan微电影后台</b></a>
     </div>
     <div class="login-box-body">
-        {% for msg in get_flashed_messages() %}
+        {% for msg in get_flashed_messages(category_filter=["err"]) %}
             <p class="login-box-msg" style="color: red">{{ msg }}</p>
+        {% endfor %}
+        {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+            <p class="login-box-msg" style="color: green">{{ msg }}</p>
         {% endfor %}
         <form method="post" id="form-data">
             <div class="form-group has-feedback">

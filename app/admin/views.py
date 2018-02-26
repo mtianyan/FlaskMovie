@@ -1,17 +1,15 @@
 # _*_ coding: utf-8 _*_
-import os
-import uuid
-
-from datetime import datetime
-from app import db, app
-
 __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:06'
 
+import os
+import uuid
+from datetime import datetime
+from app import db, app
 from functools import wraps
 from . import admin
-from flask import render_template, redirect, url_for, flash, session, request
-from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm
+from flask import render_template, redirect, url_for, flash, session, request, g
+from app.admin.forms import LoginForm, TagForm, MovieForm, PreviewForm, PwdForm
 from app.models import Admin, Tag, Movie, Preview, User, Comment, Moviecol
 from werkzeug.utils import secure_filename
 
@@ -48,10 +46,13 @@ def login():
         admin = Admin.query.filter_by(name=data["account"]).first()
         # 密码错误时，check_pwd返回false,则此时not check_pwd(data["pwd"])为真。
         if not admin.check_pwd(data["pwd"]):
-            flash("密码错误!")
+            flash("密码错误!", "err")
             return redirect(url_for("admin.login"))
         # 如果是正确的，就要定义session的会话进行保存。
         session["admin"] = data["account"]
+        # admin = Admin.query.filter_by(name=session["admin"]).first()
+        g.logo = "mtianyan.jpg"
+        # 后台头像实现的可能解决方法，将当前管理员的头像信息，存在session中。
         return redirect(request.args.get("next") or url_for("admin.index"))
     return render_template("admin/login.html", form=form)
 
@@ -63,16 +64,27 @@ def logout():
     后台注销登录
     """
     session.pop("admin", None)
+    g.logo = ""
     return redirect(url_for("admin.login"))
 
 
-@admin.route("/pwd/")
+@admin.route("/pwd/", methods=["GET", "POST"])
 @admin_login_req
 def pwd():
     """
     后台密码修改
     """
-    return render_template("admin/pwd.html")
+    form = PwdForm()
+    if form.validate_on_submit():
+        data = form.data
+        admin = Admin.query.filter_by(name=session["admin"]).first()
+        from werkzeug.security import generate_password_hash
+        admin.pwd = generate_password_hash(data["new_pwd"])
+        db.session.add(admin)
+        db.session.commit()
+        flash("修改密码成功，请重新登录！", "ok")
+        return redirect(url_for('admin.logout'))
+    return render_template("admin/pwd.html", form=form)
 
 
 @admin.route("/")
@@ -81,6 +93,7 @@ def index():
     """
     后台首页系统管理
     """
+    g.logo = "mtianyan.jpg"
     return render_template("admin/index.html")
 
 
