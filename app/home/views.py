@@ -1,16 +1,29 @@
 # _*_ coding: utf-8 _*_
+import datetime
 from functools import wraps
+
+import os
+from werkzeug.utils import secure_filename
 
 __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:07'
 
 import uuid
 from werkzeug.security import generate_password_hash
-from app import db
-from home.forms import RegistForm, LoginForm
+from app import db, app
+from home.forms import RegistForm, LoginForm, UserdetailForm
 from app.models import User, Userlog
 from . import home
 from flask import render_template, url_for, redirect, flash, session, request
+
+
+def change_filename(filename):
+    """
+    修改文件名称
+    """
+    fileinfo = os.path.splitext(filename)
+    filename = datetime.datetime.now().strftime("%Y%m%d%H%M%S") + str(uuid.uuid4().hex) + fileinfo[-1]
+    return filename
 
 
 def user_login_req(f):
@@ -83,13 +96,53 @@ def register():
     return render_template("home/register.html", form=form)
 
 
-@home.route("/user/")
+@home.route("/user/", methods=["GET", "POST"])
 @user_login_req
 def user():
-    """
-    用户中心
-    """
-    return render_template("home/user.html")
+    form = UserdetailForm()
+    user = User.query.get(int(session["user_id"]))
+    form.face.validators = []
+    if request.method == "GET":
+        # 赋初值
+        form.name.data = user.name
+        form.email.data = user.email
+        form.phone.data = user.phone
+        form.info.data = user.info
+    if form.validate_on_submit():
+        data = form.data
+        if form.face.data != "":
+            file_face = secure_filename(form.face.data.filename)
+            if not os.path.exists(app.config["FC_DIR"]):
+                os.makedirs(app.config["FC_DIR"])
+                os.chmod(app.config["FC_DIR"])
+            user.face = change_filename(file_face)
+            form.face.data.save(app.config["FC_DIR"] + user.face)
+
+        name_count = User.query.filter_by(name=data["name"]).count()
+        if data["name"] != user.name and name_count == 1:
+            flash("昵称已经存在!", "err")
+            return redirect(url_for("home.user"))
+
+        email_count = User.query.filter_by(email=data["email"]).count()
+        if data["email"] != user.email and email_count == 1:
+            flash("邮箱已经存在!", "err")
+            return redirect(url_for("home.user"))
+
+        phone_count = User.query.filter_by(phone=data["phone"]).count()
+        if data["phone"] != user.phone and phone_count == 1:
+            flash("手机已经存在!", "err")
+            return redirect(url_for("home.user"))
+
+        # 保存
+        user.name = data["name"]
+        user.email = data["email"]
+        user.phone = data["phone"]
+        user.info = data["info"]
+        db.session.add(user)
+        db.session.commit()
+        flash("修改成功!", "ok")
+        return redirect(url_for("home.user"))
+    return render_template("home/user.html", form=form, user=user)
 
 
 @home.route("/pwd/")
