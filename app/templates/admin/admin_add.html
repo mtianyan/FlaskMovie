@@ -1,71 +1,106 @@
 {% extends 'admin/admin.html' %}
 {% block css %}
     <style>
-        *{
-            font-family:"Microsoft YaHei";
+        * {
+            font-family: "Microsoft YaHei";
         }
-        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-            vertical-align:middle;
-            text-align:center;
+
+        .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+            vertical-align: middle;
+            text-align: center;
         }
 
     </style>
 {% endblock %}
 {% block content %}
-        <!--内容-->
-        <section class="content-header">
-            <h1>微电影管理系统</h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> 管理员管理</a></li>
-                <li class="active">添加管理员</li>
-            </ol>
-        </section>
-        <section class="content" id="showcontent">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">添加管理员</h3>
-                        </div>
-                        <form role="form">
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label for="input_name">管理员名称</label>
-                                    <input type="text" class="form-control" id="input_name" placeholder="请输入管理员名称！">
-                                </div>
-                                <div class="form-group">
-                                    <label for="input_pwd">管理员密码</label>
-                                    <input type="password" class="form-control" id="input_pwd" placeholder="请输入管理员密码！">
-                                </div>
-                                <div class="form-group">
-                                    <label for="input_re_pwd">管理员重复密码</label>
-                                    <input type="password" class="form-control" id="input_re_pwd"
-                                           placeholder="请输入管理员重复密码！">
-                                </div>
-                                <div class="form-group">
-                                    <label for="input_role_id">所属角色</label>
-                                    <select class="form-control" id="input_role_id">
-                                        <option value="0">---请选择所属角色---</option>
-                                        <option value="1">xxx</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="box-footer">
-                                <button type="submit" class="btn btn-primary">添加</button>
-                            </div>
-                        </form>
+    <!--内容-->
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理员管理</a></li>
+            <li class="active">添加管理员</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">添加管理员</h3>
                     </div>
+                    <form role="form" method="post">
+                        <div class="box-body">
+                            {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                                    </button>
+                                    <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                                    {{ msg }}
+                                </div>
+                            {% endfor %}
+                            <div class="form-group">
+                                <label for="input_name">{{ form.name.label }}</label>
+                                {{ form.name }}
+                                {% for err in form.name.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="text" class="form-control" id="input_name" placeholder="请输入管理员名称！">#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_pwd">{{ form.pwd.label }}</label>
+                                {{ form.pwd }}
+                                {% for err in form.pwd.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="password" class="form-control" id="input_pwd" placeholder="请输入管理员密码！">#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_re_pwd">{{ form.repwd.label }}</label>
+                                {{ form.repwd }}
+                                {% for err in form.repwd.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <input type="password" class="form-control" id="input_re_pwd"#}
+                                {#                                           placeholder="请输入管理员重复密码！">#}
+                            </div>
+                            <div class="form-group">
+                                <label for="input_role_id">{{ form.role_id.label }}</label>
+                                {{ form.role_id }}
+                                {% for err in form.role_id.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                    <select class="form-control" id="input_role_id">#}
+                                {#                                        <option value="0">---请选择所属角色---</option>#}
+                                {#                                        <option value="1">xxx</option>#}
+                                {#                                    </select>#}
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                            {#                                <button type="submit" class="btn btn-primary">添加</button>#}
+                        </div>
+                    </form>
                 </div>
             </div>
-        </section>
-        <!--内容-->
+        </div>
+    </section>
+    <!--内容-->
 {% endblock %}
 
 {% block js %}
     <script>
-    $(document).ready(function(){
-        $("#g-11").addClass("active");
-        $("#g-11-1").addClass("active");
-    });
-</script>
+        $(document).ready(function () {
+            $("#g-11").addClass("active");
+            $("#g-11-1").addClass("active");
+        });
+    </script>
 {% endblock %}
