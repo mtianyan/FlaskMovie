@@ -10,34 +10,79 @@
                     <h3 class="panel-title"><span class="glyphicon glyphicon-plus"></span>&nbsp;会员注册</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    {% for msg in get_flashed_messages(category_filter=["ok"]) %}
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                            </button>
+                            <h4><i class="icon fa fa-check"></i> 操作成功</h4>
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
+                    <form role="form" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <label for="input_name"><span class="glyphicon glyphicon-user"></span>&nbsp;昵称</label>
-                                <input id="input_name" class="form-control input-lg" placeholder="昵称" name="name" type="text" autofocus>
+                                <label for="input_name"><span
+                                        class="glyphicon glyphicon-user"></span>&nbsp;{{ form.name.label }}</label>
+                                {{ form.name }}
+                                {% for err in form.name.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                <input id="input_name" class="form-control input-lg" placeholder="昵称" name="name" type="text" autofocus>#}
                             </div>
                             <div class="col-md-12" id="error_name"></div>
                             <div class="form-group">
-                                <label for="input_email"><span class="glyphicon glyphicon-envelope"></span>&nbsp;邮箱</label>
-                                <input id="input_email" class="form-control input-lg" placeholder="邮箱" name="email" type="email" autofocus>
+                                <label for="input_email"><span
+                                        class="glyphicon glyphicon-envelope"></span>&nbsp;{{ form.email.label }}</label>
+                                {{ form.email }}
+                                {% for err in form.email.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                <input id="input_email" class="form-control input-lg" placeholder="邮箱" name="email" type="email" autofocus>#}
                             </div>
                             <div class="col-md-12" id="error_email"></div>
                             <div class="form-group">
-                                <label for="input_phone"><span class="glyphicon glyphicon-phone"></span>&nbsp;手机</label>
-                                <input id="input_phone" class="form-control input-lg" placeholder="手机" name="phone" type="text" autofocus>
+                                <label for="input_phone"><span
+                                        class="glyphicon glyphicon-phone"></span>&nbsp;{{ form.phone.label }}</label>
+                                {{ form.phone }}
+                                {% for err in form.phone.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                <input id="input_phone" class="form-control input-lg" placeholder="手机" name="phone" type="text" autofocus>#}
                             </div>
                             <div class="col-md-12" id="error_phone"></div>
                             <div class="form-group">
-                                <label for="input_password"><span class="glyphicon glyphicon-lock"></span>&nbsp;密码</label>
-                                <input id="input_password" class="form-control input-lg" placeholder="密码" name="password" type="password" value="">
+                                <label for="input_password"><span
+                                        class="glyphicon glyphicon-lock"></span>&nbsp;{{ form.pwd.label }}</label>
+                                {{ form.pwd }}
+                                {% for err in form.pwd.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                <input id="input_password" class="form-control input-lg" placeholder="密码" name="password" type="password" value="">#}
                             </div>
                             <div class="col-md-12" id="error_password"></div>
                             <div class="form-group">
-                                <label for="input_repassword"><span class="glyphicon glyphicon-lock"></span>&nbsp;确认密码</label>
-                                <input id="input_repassword" class="form-control input-lg" placeholder="确认密码" name="repassword" type="password" value="">
+                                <label for="input_repassword"><span
+                                        class="glyphicon glyphicon-lock"></span>&nbsp;{{ form.repwd.label }}</label>
+                                {{ form.repwd }}
+                                {% for err in form.repwd.errors %}
+                                    <div class="col-md-12">
+                                        <p style="color: red">{{ err }}</p>
+                                    </div>
+                                {% endfor %}
+                                {#                                <input id="input_repassword" class="form-control input-lg" placeholder="确认密码" name="repassword" type="password" value="">#}
                             </div>
                             <div class="col-md-12" id="error_repassword"></div>
-                            <a href="{{ url_for('home.user') }}" class="btn btn-lg btn-success btn-block">注册</a>
+                            {{ form.csrf_token }}
+                            {{ form.submit }}
+                            {#                            <a href="{{ url_for('home.user') }}" class="btn btn-lg btn-success btn-block">注册</a>#}
                         </fieldset>
                     </form>
                 </div>
