@@ -12,7 +12,7 @@ import uuid
 from werkzeug.security import generate_password_hash
 from app import db, app
 from home.forms import RegistForm, LoginForm, UserdetailForm, PwdForm
-from app.models import User, Userlog
+from app.models import User, Userlog, Preview
 from . import home
 from flask import render_template, url_for, redirect, flash, session, request
 
@@ -214,7 +214,10 @@ def animation():
     """
     首页轮播动画
     """
-    return render_template("home/animation.html")
+    data = Preview.query.all()
+    for v in data:
+        v.id = v.id - 1
+    return render_template("home/animation.html", data=data)
 
 
 @home.route("/search/")
