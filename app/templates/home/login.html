@@ -10,6 +10,14 @@
                     <h3 class="panel-title"><span class="glyphicon glyphicon-log-in"></span>&nbsp;会员登录</h3>
                 </div>
                 <div class="panel-body">
+                    {% for msg in get_flashed_messages(category_filter=["err"]) %}
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×
+                            </button>
+                            <h4><i class="icon fa fa-check"></i> 操作失败</h4>
+                            {{ msg }}
+                        </div>
+                    {% endfor %}
                     {% for msg in get_flashed_messages(category_filter=["ok"]) %}
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×

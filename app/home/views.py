@@ -11,7 +11,7 @@ __date__ = '2017/8/26 17:07'
 import uuid
 from werkzeug.security import generate_password_hash
 from app import db, app
-from home.forms import RegistForm, LoginForm, UserdetailForm
+from home.forms import RegistForm, LoginForm, UserdetailForm, PwdForm
 from app.models import User, Userlog
 from . import home
 from flask import render_template, url_for, redirect, flash, session, request
@@ -145,13 +145,25 @@ def user():
     return render_template("home/user.html", form=form, user=user)
 
 
-@home.route("/pwd/")
+@home.route("/pwd/", methods=["GET", "POST"])
 @user_login_req
 def pwd():
     """
     修改密码
     """
-    return render_template("home/pwd.html")
+    form = PwdForm()
+    if form.validate_on_submit():
+        data = form.data
+        user = User.query.filter_by(name=session["user"]).first()
+        if not user.check_pwd(data["old_pwd"]):
+            flash("旧密码错误！", "err")
+            return redirect(url_for('home.pwd'))
+        user.pwd = generate_password_hash(data["new_pwd"])
+        db.session.add(user)
+        db.session.commit()
+        flash("修改密码成功，请重新登录！", "ok")
+        return redirect(url_for('home.logout'))
+    return render_template("home/pwd.html", form=form)
 
 
 @home.route("/comments/")
@@ -163,13 +175,20 @@ def comments():
     return render_template("home/comments.html")
 
 
-@home.route("/loginlog/")
+@home.route("/loginlog/<int:page>/", methods=["GET"])
 @user_login_req
-def loginlog():
+def loginlog(page=None):
     """
-    登录日志
+    会员登录日志
     """
-    return render_template("home/loginlog.html")
+    if page is None:
+        page = 1
+    page_data = Userlog.query.filter_by(
+        user_id=int(session["user_id"])
+    ).order_by(
+        Userlog.addtime.desc()
+    ).paginate(page=page, per_page=2)
+    return render_template("home/loginlog.html", page_data=page_data)
 
 
 @home.route("/moviecol/")
