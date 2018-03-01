@@ -6,13 +6,13 @@
              <a id="m2" href="{{ url_for('home.pwd')}}" class="list-group-item">
                 <span class="glyphicon glyphicon-lock"></span>&nbsp;修改密码
             </a>
-            <a id="m3" href="{{ url_for('home.comments')}}" class="list-group-item">
+            <a id="m3" href="{{ url_for('home.comments', page=1) }}" class="list-group-item">
                 <span class="glyphicon glyphicon-comment"></span>&nbsp;评论记录
             </a>
             <a id="m4" href="{{ url_for('home.loginlog', page=1) }}" class="list-group-item">
                 <span class="glyphicon glyphicon-calendar"></span>&nbsp;登录日志
             </a>
-            <a id="m5" href="{{ url_for('home.moviecol')}}" class="list-group-item">
+            <a id="m5" href="{{ url_for('home.moviecol', page=1) }}" class="list-group-item">
                 <span class="glyphicon glyphicon-heart"></span>&nbsp;收藏电影
             </a>
         </div>
