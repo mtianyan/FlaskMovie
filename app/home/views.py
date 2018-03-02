@@ -11,7 +11,7 @@ __date__ = '2017/8/26 17:07'
 import uuid
 from werkzeug.security import generate_password_hash
 from app import db, app, rd
-from home.forms import RegistForm, LoginForm, UserdetailForm, PwdForm, CommentForm
+from app.home.forms import RegistForm, LoginForm, UserdetailForm, PwdForm, CommentForm
 from app.models import User, Userlog, Preview, Tag, Movie, Comment, Moviecol
 from . import home
 from flask import render_template, url_for, redirect, flash, session, request, Response
