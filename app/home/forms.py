@@ -3,7 +3,7 @@ __author__ = 'mtianyan'
 __date__ = '2017/8/26 17:07'
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FileField, TextAreaField
-from wtforms.validators import DataRequired, Email, Regexp, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Email, Regexp, EqualTo, ValidationError, Length
 from app.models import User
 
 
@@ -35,7 +35,8 @@ class RegistForm(FlaskForm):
         label="手机",
         validators=[
             DataRequired("手机号不能为空！"),
-            Regexp("1[3458]\\d{9}", message="手机格式不正确！")
+            Regexp("1[3458]\\d{9}", message="手机格式不正确！"),
+            Length(min=11, max=11, message="手机长度不正确！")
         ],
         description="手机",
         render_kw={
@@ -151,7 +152,8 @@ class UserdetailForm(FlaskForm):
         label="手机",
         validators=[
             DataRequired("手机号不能为空！"),
-            Regexp("1[3458]\\d{9}", message="手机格式不正确！")
+            Regexp("1[3458]\\d{9}", message="手机格式不正确！"),
+            Length(min=11, max=11, message="手机长度不正确！")
         ],
         description="手机",
         render_kw={
