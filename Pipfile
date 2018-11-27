@@ -4,22 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-click = "==6.7"
-coverage = "==4.5.1"
+click = "==7.0"
+coverage = "==4.5.2"
+flask = "==1.0.2"
 flask-redis = "==0.3.0"
-itsdangerous = "==0.24"
-mysqlclient = "*"
+flask-script = "==2.0.6"
+flask-sqlalchemy = "==2.3.2"
+flask-wtf = "==0.14.2"
+itsdangerous = "==1.1.0"
+mysqlclient = "==1.3.13"
 redis = "==2.10.6"
-Flask = "==0.12.2"
-Flask-Script = "==2.0.6"
-Flask-SQLAlchemy = "==2.3.2"
-Flask-WTF = "==0.14.2"
+sqlalchemy = "==1.2.14"
+werkzeug = "==0.14.1"
+wtforms = "==2.2.1"
 "Jinja2" = "==2.10"
 MarkupSafe = "==1.0"
-PyMySQL = "==0.8.0"
-SQLAlchemy = "==1.2.1"
-Werkzeug = "==0.14.1"
-WTForms = "==2.1"
 
 [dev-packages]
 
