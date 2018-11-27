@@ -5,8 +5,6 @@
 
 >flask构建弹幕微电影系列源码+教程:
 
-线上演示地址: http://movie.mtianyan.cn
-
 简书持续更新教程地址: https://www.jianshu.com/nb/15899039
 
 静态前端源码仓库: https://github.com/mtianyan/movie_project_html
