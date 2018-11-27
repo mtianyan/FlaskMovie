@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+click = "==6.7"
+coverage = "==4.5.1"
+flask-redis = "==0.3.0"
+itsdangerous = "==0.24"
+mysqlclient = "*"
+redis = "==2.10.6"
+Flask = "==0.12.2"
+Flask-Script = "==2.0.6"
+Flask-SQLAlchemy = "==2.3.2"
+Flask-WTF = "==0.14.2"
+"Jinja2" = "==2.10"
+MarkupSafe = "==1.0"
+PyMySQL = "==0.8.0"
+SQLAlchemy = "==1.2.1"
+Werkzeug = "==0.14.1"
+WTForms = "==2.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"

@@ -113,7 +113,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>&nbsp;电影评论</h3>
                 </div>
-                <div class="panel-body" style="height:459px;overflow:scroll;">
+                <div class="panel-body">
                     {% if "user" not in session %}
                         <div class="alert alert-danger alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert">
@@ -204,7 +204,8 @@
         var dp1 = new DPlayer({
             element: document.getElementById('dplayer1'),
             video: {
-                url: "{{ url_for('static',filename='uploads/'+movie.url) }}",
+                <!-- url: "{{ url_for('static',filename='uploads/'+movie.url) }}", -->
+				url: "http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4",
             },
             danmaku: {
                 id: '{{ movie.id }}',

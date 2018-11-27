@@ -5,6 +5,7 @@ __date__ = '2017/8/26 17:05'
 from datetime import datetime
 from app import db
 
+
 # 会员数据模型
 class User(db.Model):
     __tablename__ = "user"
@@ -200,24 +201,25 @@ class Oplog(db.Model):
     def __repr__(self):
         return "<Oplog %r>" % self.id
 
-# if __name__ == "__main__":
-#     db.create_all()
+
+if __name__ == "__main__":
+    db.create_all()
 
     # 测试数据的插入
 
-    # role = Role(
-    #     name="超级管理员",
-    #     auths=""
-    # )
-    # db.session.add(role)
-    # db.session.commit()
-    # from werkzeug.security import generate_password_hash
-    #
-    # admin = Admin(
-    #     name="mtianyanmovie",
-    #     pwd=generate_password_hash("mtianyanmovie"),
-    #     is_super=0,
-    #     role_id=1
-    # )
-    # db.session.add(admin)
-    # db.session.commit()
+    role = Role(
+        name="超级管理员",
+        auths=""
+    )
+    db.session.add(role)
+    db.session.commit()
+    from werkzeug.security import generate_password_hash
+
+    admin = Admin(
+        name="mtianyan",
+        pwd=generate_password_hash("123456"),
+        is_super=0,
+        role_id=1
+    )
+    db.session.add(admin)
+    db.session.commit()
