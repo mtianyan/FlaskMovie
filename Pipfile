@@ -19,6 +19,7 @@ Flask-Script = "==2.0.6"
 Flask-WTF = "==0.14.2"
 SQLAlchemy = "==1.2.14"
 Werkzeug = "==0.14.1"
+qiniu = "*"
 
 [dev-packages]
 
