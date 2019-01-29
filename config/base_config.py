@@ -28,7 +28,7 @@ __date__ = '2018-11-27 23:59'
 
 SQL_URL = '127.0.0.1'
 SQL_USER = 'root'
-SQL_PASSWORD = 'Zyy180926.'
+SQL_PASSWORD = 'Zyy180926'
 DATABASE = 'movie'
 ADMIN = 'mtianyan'
 ADMIN_PASSWORD = '123456'
