@@ -130,8 +130,8 @@ class MovieForm(FlaskForm):
             DataRequired("请选择标签！")
         ],
         coerce=int,
-        # 通过列表生成器生成列表
-        choices=[(v.id, v.name) for v in Tag.query.all()],
+        # 通过列表生成器生成列表, 解决列表生成式 强制转换为list
+        choices=list([(v.id, v.name) for v in Tag.query.all()]),
         description="标签",
         render_kw={
             "class": "form-control",
