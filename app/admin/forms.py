@@ -117,7 +117,7 @@ class MovieForm(FlaskForm):
         ],
         # star的数据类型
         coerce=int,
-        choices=[(1, "1星"), (2, "2星"), (3, "3星"), (4, "4星"), (5, "5星")],
+        choices=list([(1, "1星"), (2, "2星"), (3, "3星"), (4, "4星"), (5, "5星")]),
         description="星级",
         render_kw={
             "class": "form-control",
@@ -298,7 +298,7 @@ class RoleForm(FlaskForm):
         ],
         # 动态数据填充选择栏：列表生成器
         coerce=int,
-        choices=[(v.id, v.name) for v in Auth.query.all()],
+        choices=list([(v.id, v.name) for v in Auth.query.all()]),
         description="权限列表",
         render_kw={
             "class": "form-control",
@@ -350,7 +350,7 @@ class AdminForm(FlaskForm):
     role_id = SelectField(
         label="所属角色",
         coerce=int,
-        choices=[(v.id, v.name) for v in Role.query.all()],
+        choices=list([(v.id, v.name) for v in Role.query.all()]),
         render_kw={
             "class": "form-control",
         }
