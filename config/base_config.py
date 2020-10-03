@@ -26,11 +26,9 @@ __date__ = '2018-11-27 23:59'
   　　　　　　　　　　┗┻┛　┗┻┛+ + + +
 """
 
-SQL_URL = '127.0.0.1'
 SQL_USER = 'root'
 SQL_PASSWORD = 'mtianyanroot'
 DATABASE = 'movie'
 ADMIN = 'mtianyan'
 ADMIN_PASSWORD = '123456'
-
-SQLALCHEMY_DATABASE_URI = f"mysql://{SQL_USER}:{SQL_PASSWORD}@{SQL_URL}:3306/{DATABASE}"
+SQLALCHEMY_DATABASE_URI = "mysql://root:mtianyanroot@127.0.0.1:3306/movie?charset=utf8mb4"

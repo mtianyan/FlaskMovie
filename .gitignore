@@ -165,3 +165,4 @@ dmypy.json
 .pyre/
 
 app/static/uploads
+db/

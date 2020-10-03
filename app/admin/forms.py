@@ -85,12 +85,12 @@ class MovieForm(FlaskForm):
             "placeholder": "请输入片名！"
         }
     )
-    url = FileField(
-        label="文件",
+    url = StringField(
+        label="链接",
         validators=[
-            DataRequired("请上传文件！")
+            DataRequired("填写链接")
         ],
-        description="文件",
+        description="链接",
     )
     info = TextAreaField(
         label="简介",

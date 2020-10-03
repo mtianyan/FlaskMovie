@@ -240,16 +240,16 @@ if __name__ == "__main__":
 
     # 测试数据的插入
 
-    role = Role(
-        name="超级管理员",
-        auths=""
-    )
-    db.session.add(role)
-    db.session.commit()
+    # role = Role(
+    #     name="超级管理员3",
+    #     auths=""
+    # )
+    # db.session.add(role)
+    # db.session.commit()
     from werkzeug.security import generate_password_hash
 
     admin = Admin(
-        name=ADMIN,
+        name="mtianyan3",
         pwd=generate_password_hash(ADMIN_PASSWORD),
         is_super=0,
         role_id=1

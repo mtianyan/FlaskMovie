@@ -249,21 +249,21 @@ def movie_add():
     form = MovieForm()
     if form.validate_on_submit():
         data = form.data
-        file_url = secure_filename(form.url.data.filename)
+        # file_url = secure_filename(form.url.data.filename)
         file_logo = secure_filename(form.logo.data.filename)
         if not os.path.exists(app.config["UP_DIR"]):
             # 创建一个多级目录
             os.makedirs(app.config["UP_DIR"])
             os.chmod(app.config["UP_DIR"], "rw")
-        url = change_filename(file_url)
+        # url = change_filename(file_url)
         logo = change_filename(file_logo)
         # 保存
-        form.url.data.save(app.config["UP_DIR"] + url)
+        # form.url.data.save(app.config["UP_DIR"] + url)
         form.logo.data.save(app.config["UP_DIR"] + logo)
         # url,logo为上传视频,图片之后获取到的地址
         movie = Movie(
             title=data["title"],
-            url=url,
+            url=data["url"],
             info=data["info"],
             logo=logo,
             star=int(data["star"]),

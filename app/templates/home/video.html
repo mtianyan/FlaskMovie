@@ -4,7 +4,7 @@
 {% block css %}
     <!--播放页面-->
     <link rel="stylesheet" href="{{ url_for('static',filename='dplayer/dist/DPlayer.min.css') }}">
-    <script src="{{ url_for('static',filename='dplayer/plugin/flv.min.js') }}"></script>
+ <script src="https://cdn.bootcss.com/hls.js/8.0.0-beta.3/hls.min.js"></script>
     <script src="{{ url_for('static',filename='dplayer/plugin/hls.min.js') }}"></script>
     <script src="{{ url_for('static',filename='dplayer/dist/DPlayer.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static',filename='ueditor/ueditor.config.js') }}"></script>
@@ -200,12 +200,15 @@
 
 {% block js %}
     <!--播放页面-->
+
     <script>
         var dp1 = new DPlayer({
             element: document.getElementById('dplayer1'),
             video: {
-                <!-- url: "{{ url_for('static',filename='uploads/'+movie.url) }}", -->
-				url: "http://of66as8gb.bkt.clouddn.com/12.2%20xss%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E9%98%B2%E8%8C%83.mp4",
+                // url: "{{ url_for('static',filename='uploads/'+movie.url) }}",
+                url: "{{ movie.url }}",
+                type: 'hls',
+				
             },
             danmaku: {
                 id: '{{ movie.id }}',

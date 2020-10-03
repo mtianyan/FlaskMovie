@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  mtianyan_mysql:
+      image: mysql:8.0
+      restart: always
+      command: --default-authentication-plugin=mysql_native_password --mysqlx=0
+      environment:
+        - MYSQL_PORT=3306  # cannot change this port to other number
+        - MYSQL_DATABASE=movie # name you want for the database
+        - MYSQL_USER=root # change to whatever username you wantr
+        - MYSQL_ROOT_PASSWORD=mtianyanroot #change to good root password
+      ports:
+        - "3313:3306"
+      volumes:
+        - "./db:/var/lib/mysql"
+      
+  mtianyan_redis:
+      # 指定镜像
+      image: redis:4
+      ports:
+        # 端口映射
+        - 6399:6379
+      volumes:
+        # 目录映射
+        - "./conf/redis:/usr/local/etc/redis"
+        - "./redis_data:/data"
+      command:
+        # 执行的命令
+        redis-server
+
+  mtianyan_nginx:
+    restart: always
+    image: nginx
+    ports:
+      - "83:80"
+    volumes:
+      - ./conf/nginx_book.conf:/etc/nginx/conf.d/nginx_book.conf
+      - .:/PROJECT_ROOT
+    links:
+      - mtianyan_flask_movie:web
+
+
+  mtianyan_flask_movie:
+    restart: always
+    build: .
+    ports:
+      - "8013:8000"
+    volumes:
+      - .:/PROJECT_ROOT
+    links:
+      - mtianyan_redis:myredis
+      - mtianyan_mysql:mtianyan_mysql
+    command: ["./wait-for-it.sh", "db:5432", "--", "uwsgi", "uwsgi.ini"]
